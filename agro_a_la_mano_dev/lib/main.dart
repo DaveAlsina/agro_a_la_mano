@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
+    as Color_constants;
+import 'assets/icons.dart' as Icons_constants;
 
 void main() {
   runApp(MyApp());
@@ -95,6 +98,11 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text(
               'You have pushed the button this many times:',
+              style: TextStyle(
+                color: Color_constants.BLUE_LETTERS_COLOR,
+                fontFamily: 'Noto Sans',
+                fontWeight: FontWeight.bold,
+              ),
             ),
             Text(
               '$_counter',
@@ -106,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icons_constants.GO_DOWN_ICON,
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
