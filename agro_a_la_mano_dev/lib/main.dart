@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
     as Color_constants;
+import 'package:agro_a_la_mano_dev/ui/profile_page.dart';
 import 'assets/icons.dart' as Icons_constants;
 
+
 void main() {
-  runApp(MyApp());
+  runApp(ProfilePage());
 }
 
 class MyApp extends StatelessWidget {
