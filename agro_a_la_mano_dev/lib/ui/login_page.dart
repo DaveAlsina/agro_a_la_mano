@@ -1,11 +1,14 @@
+import 'package:agro_a_la_mano_dev/ui/signup_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
     as colorCons;
 import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
     as textCons;
-import 'package:agro_a_la_mano_dev/ui/icons.dart' as iconCons;
+import 'package:agro_a_la_mano_dev/icons/icons.dart' as iconCons;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,69 +18,64 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // final _formKey = GlobalKey<FormState>();
+// final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      color: colorCons.BACKGROUND_COLOR,
       home: Scaffold(
-        body: Container(
-          color: colorCons.BACKGROUND_COLOR,
-          child: Column(
+        resizeToAvoidBottomInset: false,
+        body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(5),
-                  child: Flexible(
-                    child: Image.asset(
-                      'brote.png',
-                      // scale: 0.2,
+            children: <Widget>[
+              Flexible(
+                fit: FlexFit.tight,
+                flex: 2,
+                child: Container(
+                  height: 130,
+                  padding: EdgeInsets.all(10),
+                  child: Image.asset('brote.png'),
+                ),
+              ),
+              Flexible(
+                  fit: FlexFit.tight,
+                  flex: 1,
+                  child: Column(children: [
+                    Container(
+                      padding: EdgeInsets.all(15),
+                      height: 50,
+                      child: Text(
+                        '¡Bienvenido!',
+                        style: TextStyle(
+                            color: colorCons.BLUE_LETTERS_COLOR,
+                            fontFamily: textCons.TEXT_FONT_CONST,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
                     ),
-                  )),
-              // Flexible(
-              //     flex: 2,
-              //     child: Container(
-              //       alignment: Alignment.center,
-              //       padding: EdgeInsets.all(5),
-              //       child: Image.asset(
-              //         'brote.png',
-              //         // scale: 0.2,
-              //       ),
-              //     )),
+                    Container(
+                      // padding: EdgeInsets.all(5),
+                      height: 30,
+                      child: Text(
+                        'Introduzca su correo y contraseña para ingresar',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: colorCons.BLUE_LETTERS_COLOR,
+                            fontFamily: textCons.TEXT_FONT_CONST,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 16),
+                      ),
+                    )
+                  ])),
               Flexible(
                   flex: 1,
+                  fit: FlexFit.tight,
                   child: Container(
-                    child: Text(
-                      '¡Bienvenido!',
-                      style: TextStyle(
-                          color: colorCons.BLUE_LETTERS_COLOR,
-                          fontFamily: textCons.TEXT_FONT_CONST,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                  )),
-              Flexible(
-                  flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Text(
-                      'Introduzca su correo y contraseña para ingresar',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: colorCons.BLUE_LETTERS_COLOR,
-                          fontFamily: textCons.TEXT_FONT_CONST,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 16),
-                    ),
-                  )),
-              Flexible(
-                  flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    height: 30,
+                    padding: EdgeInsets.all(17),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,8 +109,10 @@ class _LoginPageState extends State<LoginPage> {
                   )),
               Flexible(
                   flex: 1,
+                  fit: FlexFit.tight,
                   child: Container(
-                      padding: EdgeInsets.all(5),
+                      height: 30,
+                      padding: EdgeInsets.all(17),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,6 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                       ))),
               Flexible(
                   flex: 1,
+                  fit: FlexFit.tight,
                   child: Column(
                     children: [
                       MaterialButton(
@@ -164,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {},
                       ),
                       Container(
-                        padding: EdgeInsets.all(3.75),
+                        padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -176,21 +177,25 @@ class _LoginPageState extends State<LoginPage> {
                                   color: colorCons.GREY_LETTERS_COLOR,
                                   fontSize: 15),
                             ),
-                            Text(
-                              'Registrate',
-                              style: TextStyle(
-                                  fontFamily: textCons.TEXT_FONT_CONST,
-                                  color: colorCons.BLUE_LETTERS_COLOR,
-                                  fontSize: 15),
-                            )
+                            RichText(
+                                text: TextSpan(
+                                    text: "Registrate",
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        fontFamily: textCons.TEXT_FONT_CONST,
+                                        color: colorCons.BLUE_LETTERS_COLOR,
+                                        fontSize: 15),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        print('click');
+                                        Get.to(SignupPage());
+                                      }))
                           ],
                         ),
                       )
                     ],
                   ))
-            ],
-          ),
-        ),
+            ]),
       ),
     );
   }

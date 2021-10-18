@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:agro_a_la_mano_dev/ui/login_page.dart';
-import 'package:agro_a_la_mano_dev/ui/login_page2.dart';
+import 'package:agro_a_la_mano_dev/ui/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -15,7 +15,7 @@ import 'package:agro_a_la_mano_dev/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(LoginPage());
+    await tester.pumpWidget(SignupPage());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

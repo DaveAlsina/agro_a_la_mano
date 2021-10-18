@@ -13,7 +13,7 @@ const Icon LOCK_ICON =
     Icon(Icons.lock_outline_rounded, color: colorConstants.GREY_LETTERS_COLOR);
 const Icon CAMERA_ICON =
     Icon(Icons.photo_camera_outlined, color: colorConstants.GREY_LETTERS_COLOR);
-const Icon EMAIL_AT_ICON =
+const Icon EMAIL_ICON =
     Icon(Icons.email_outlined, color: colorConstants.GREY_LETTERS_COLOR);
 const Icon WRITE_QUESTION_ICON =
     Icon(Icons.edit_outlined, color: colorConstants.GREY_LETTERS_COLOR);

@@ -1,46 +1,51 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
     as colorCons;
 import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
     as textCons;
-import 'package:agro_a_la_mano_dev/ui/icons.dart' as iconCons;
+import 'package:agro_a_la_mano_dev/icons/icons.dart' as iconCons;
 
-class LoginPage2 extends StatefulWidget {
-  const LoginPage2({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState2 createState() => _LoginPageState2();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _LoginPageState2 extends State<LoginPage2> {
-  // final _formKey = GlobalKey<FormState>();
+class _SignupPageState extends State<SignupPage> {
+// final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       color: colorCons.BACKGROUND_COLOR,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Flexible(
                 fit: FlexFit.tight,
-                flex: 1,
+                flex: 2,
                 child: Container(
-                  height: 100,
+                  height: 130,
+                  padding: EdgeInsets.all(10),
                   child: Image.asset('brote.png'),
                 ),
               ),
               Flexible(
                   fit: FlexFit.tight,
-                  flex: 2,
+                  flex: 1,
                   child: Column(children: [
                     Container(
-                      height: 100,
+                      padding: EdgeInsets.all(15),
+                      height: 50,
                       child: Text(
                         '¡Bienvenido!',
                         style: TextStyle(
@@ -50,34 +55,38 @@ class _LoginPageState2 extends State<LoginPage2> {
                             fontSize: 20),
                       ),
                     ),
-                    Text(
-                      'Introduzca su correo y contraseña para ingresar',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: colorCons.BLUE_LETTERS_COLOR,
-                          fontFamily: textCons.TEXT_FONT_CONST,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 16),
-                    ),
+                    Container(
+                      // padding: EdgeInsets.all(5),
+                      height: 30,
+                      child: Text(
+                        'Introduzca sus datos para registrarse',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: colorCons.BLUE_LETTERS_COLOR,
+                            fontFamily: textCons.TEXT_FONT_CONST,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 16),
+                      ),
+                    )
                   ])),
               Flexible(
                   flex: 1,
                   fit: FlexFit.tight,
                   child: Container(
-                    height: 100,
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    height: 30,
+                    padding: EdgeInsets.all(10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Correo',
+                          'Nombre',
                           style: TextStyle(
                               color: colorCons.GREY_LETTERS_COLOR,
                               fontFamily: textCons.TEXT_FONT_CONST),
                         ),
                         TextFormField(
-                          controller: _emailController,
+                          controller: _nameController,
                           decoration: InputDecoration(
                               suffixIcon: iconCons.PROFILE_ICON,
                               focusedBorder: OutlineInputBorder(
@@ -101,8 +110,45 @@ class _LoginPageState2 extends State<LoginPage2> {
                   flex: 1,
                   fit: FlexFit.tight,
                   child: Container(
-                      height: 100,
-                      padding: EdgeInsets.all(5),
+                    height: 30,
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Correo',
+                          style: TextStyle(
+                              color: colorCons.GREY_LETTERS_COLOR,
+                              fontFamily: textCons.TEXT_FONT_CONST),
+                        ),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                              suffixIcon: iconCons.EMAIL_ICON,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: colorCons.GREEN_BUTTON_COLOR,
+                                ),
+                                borderRadius: BorderRadius.circular(15.0),
+                              )),
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "Enter email";
+                          //   } else if (!value.contains('@')) {
+                          //     return "Enter valid email address";
+                          //   }
+                          // },
+                        ),
+                      ],
+                    ),
+                  )),
+              Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Container(
+                      height: 30,
+                      padding: EdgeInsets.all(10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,7 +201,7 @@ class _LoginPageState2 extends State<LoginPage2> {
                         onPressed: () {},
                       ),
                       Container(
-                        padding: EdgeInsets.all(3.75),
+                        padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -167,13 +213,16 @@ class _LoginPageState2 extends State<LoginPage2> {
                                   color: colorCons.GREY_LETTERS_COLOR,
                                   fontSize: 15),
                             ),
-                            Text(
-                              'Registrate',
-                              style: TextStyle(
-                                  fontFamily: textCons.TEXT_FONT_CONST,
-                                  color: colorCons.BLUE_LETTERS_COLOR,
-                                  fontSize: 15),
-                            )
+                            RichText(
+                                text: TextSpan(
+                                    text: "Registrate",
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        fontFamily: textCons.TEXT_FONT_CONST,
+                                        color: colorCons.BLUE_LETTERS_COLOR,
+                                        fontSize: 15),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => print('click')))
                           ],
                         ),
                       )
