@@ -7,14 +7,14 @@ import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
     as textCons;
 import 'package:agro_a_la_mano_dev/ui/icons.dart' as iconCons;
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage2 extends StatefulWidget {
+  const LoginPage2({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginPageState2 createState() => _LoginPageState2();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState2 extends State<LoginPage2> {
   // final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -22,49 +22,35 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      color: colorCons.BACKGROUND_COLOR,
       home: Scaffold(
-        body: Container(
-          color: colorCons.BACKGROUND_COLOR,
-          child: Column(
+        body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(5),
-                  child: Flexible(
-                    child: Image.asset(
-                      'brote.png',
-                      // scale: 0.2,
-                    ),
-                  )),
-              // Flexible(
-              //     flex: 2,
-              //     child: Container(
-              //       alignment: Alignment.center,
-              //       padding: EdgeInsets.all(5),
-              //       child: Image.asset(
-              //         'brote.png',
-              //         // scale: 0.2,
-              //       ),
-              //     )),
+            children: <Widget>[
               Flexible(
-                  flex: 1,
-                  child: Container(
-                    child: Text(
-                      '¡Bienvenido!',
-                      style: TextStyle(
-                          color: colorCons.BLUE_LETTERS_COLOR,
-                          fontFamily: textCons.TEXT_FONT_CONST,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                  )),
+                fit: FlexFit.tight,
+                flex: 1,
+                child: Container(
+                  height: 100,
+                  child: Image.asset('brote.png'),
+                ),
+              ),
               Flexible(
-                  flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Text(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: Column(children: [
+                    Container(
+                      height: 100,
+                      child: Text(
+                        '¡Bienvenido!',
+                        style: TextStyle(
+                            color: colorCons.BLUE_LETTERS_COLOR,
+                            fontFamily: textCons.TEXT_FONT_CONST,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                    ),
+                    Text(
                       'Introduzca su correo y contraseña para ingresar',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -73,10 +59,12 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.normal,
                           fontSize: 16),
                     ),
-                  )),
+                  ])),
               Flexible(
                   flex: 1,
+                  fit: FlexFit.tight,
                   child: Container(
+                    height: 100,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -111,7 +99,9 @@ class _LoginPageState extends State<LoginPage> {
                   )),
               Flexible(
                   flex: 1,
+                  fit: FlexFit.tight,
                   child: Container(
+                      height: 100,
                       padding: EdgeInsets.all(5),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -146,6 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                       ))),
               Flexible(
                   flex: 1,
+                  fit: FlexFit.tight,
                   child: Column(
                     children: [
                       MaterialButton(
@@ -188,9 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     ],
                   ))
-            ],
-          ),
-        ),
+            ]),
       ),
     );
   }
