@@ -200,7 +200,7 @@ class _SignupPageState extends State<SignupPage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7)),
                         child: Text(
-                          'Login',
+                          'SignUp',
                           style: TextStyle(
                               fontFamily: textCons.TEXT_FONT_CONST,
                               fontSize: 16),
@@ -210,7 +210,7 @@ class _SignupPageState extends State<SignupPage> {
                           final form = _formKey.currentState;
                           form!.save();
                           if (form.validate()) {
-                            bool saved = await _authcontroller.registerUser(
+                            bool saved = await _authcontroller.signup(
                                 _nameController.text,
                                 _emailController.text,
                                 _passwordController.text);
