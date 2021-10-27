@@ -1,12 +1,16 @@
+import 'package:agro_a_la_mano_dev/domain/controllers/authentication_controller.dart';
+import 'package:agro_a_la_mano_dev/ui/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
     as colorCons;
 import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
     as textCons;
 import 'package:agro_a_la_mano_dev/icons/icons.dart' as iconCons;
+import 'package:get/get.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -16,7 +20,8 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-// final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+  AuthenticationController _authcontroller = Get.find();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
@@ -26,10 +31,12 @@ class _SignupPageState extends State<SignupPage> {
     return MaterialApp(
       color: colorCons.BACKGROUND_COLOR,
       home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+          resizeToAvoidBottomInset: false,
+          body: Form(
+            key: _formKey,
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+                    Widget>[
               Flexible(
                 fit: FlexFit.tight,
                 flex: 2,
@@ -95,13 +102,11 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
                               )),
-                          // validator: (value) {
-                          //   if (value!.isEmpty) {
-                          //     return "Enter email";
-                          //   } else if (!value.contains('@')) {
-                          //     return "Enter valid email address";
-                          //   }
-                          // },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter name";
+                            }
+                          },
                         ),
                       ],
                     ),
@@ -132,13 +137,13 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
                               )),
-                          // validator: (value) {
-                          //   if (value!.isEmpty) {
-                          //     return "Enter email";
-                          //   } else if (!value.contains('@')) {
-                          //     return "Enter valid email address";
-                          //   }
-                          // },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter email";
+                            } else if (!value.contains('@')) {
+                              return "Entre un correo valido";
+                            }
+                          },
                         ),
                       ],
                     ),
@@ -170,13 +175,15 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                   borderRadius: BorderRadius.circular(15.0),
                                 )),
-                            //   validator: (value) {
-                            //     if (value!.isEmpty) {
-                            //       return "Enter email";
-                            //     } else if (!value.contains('@')) {
-                            //       return "Enter valid email address";
-                            //     }
-                            //   },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Enter password";
+                              } else if (!value.contains(RegExp(r'[A-Z]'))) {
+                                return "Debe usar mayusculas, minusculas y numeros";
+                              } else if (!value.contains(RegExp(r'[0-9]'))) {
+                                return "Debe usar numeros";
+                              }
+                            },
                           ),
                         ],
                       ))),
@@ -198,7 +205,28 @@ class _SignupPageState extends State<SignupPage> {
                               fontFamily: textCons.TEXT_FONT_CONST,
                               fontSize: 16),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          final form = _formKey.currentState;
+                          form!.save();
+                          if (form.validate()) {
+                            bool saved = await _authcontroller.registerUser(
+                                _nameController.text,
+                                _emailController.text,
+                                _passwordController.text);
+                            print(saved);
+                            if (saved) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Guardado correctamente. Ingrese')));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('No se pudo guardar')));
+                            }
+                          }
+                        },
                       ),
                       Container(
                         padding: EdgeInsets.all(10),
@@ -207,7 +235,7 @@ class _SignupPageState extends State<SignupPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              'Aun no tienes cuenta? ',
+                              'Ya tienes cuenta? ',
                               style: TextStyle(
                                   fontFamily: textCons.TEXT_FONT_CONST,
                                   color: colorCons.GREY_LETTERS_COLOR,
@@ -215,21 +243,24 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                             RichText(
                                 text: TextSpan(
-                                    text: "Registrate",
+                                    text: "Ingresa",
                                     style: TextStyle(
                                         decoration: TextDecoration.underline,
                                         fontFamily: textCons.TEXT_FONT_CONST,
                                         color: colorCons.BLUE_LETTERS_COLOR,
                                         fontSize: 15),
                                     recognizer: TapGestureRecognizer()
-                                      ..onTap = () => print('click')))
+                                      ..onTap = () {
+                                        print('click ingresa');
+                                        Navigator.pop(context);
+                                      }))
                           ],
                         ),
                       )
                     ],
                   ))
             ]),
-      ),
+          )),
     );
   }
 }
