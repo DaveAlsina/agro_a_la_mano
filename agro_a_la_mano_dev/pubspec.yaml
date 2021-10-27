@@ -52,6 +52,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - img/lechuga.jpg
+    - assets/
+
+
   fonts:
    - family:  CustomIcons
      fonts:

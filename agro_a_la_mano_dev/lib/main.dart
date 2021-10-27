@@ -1,3 +1,5 @@
+import 'package:agro_a_la_mano_dev/controllers/authentication_controller.dart';
+import 'package:agro_a_la_mano_dev/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
     as Color_constants;
@@ -11,9 +13,8 @@ import 'package:get/get.dart';
 
 void main() {
   Get.put(HistoryController());
-  runApp(GetMaterialApp(home:
-                    QuestionPage())
-        );
+  Get.put(AuthenticationController());
+  runApp(HomePage());
 }
 
 class MyApp extends StatelessWidget {
