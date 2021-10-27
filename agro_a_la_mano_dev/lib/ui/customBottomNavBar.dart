@@ -1,3 +1,7 @@
+import 'package:agro_a_la_mano_dev/pages/questionask_page.dart';
+import 'package:agro_a_la_mano_dev/pages/questionhist_page.dart';
+import 'package:agro_a_la_mano_dev/ui/profile_page.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +12,9 @@ import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
 as textCons;
 import 'package:agro_a_la_mano_dev/assets/icons.dart' as Icons_constants;
 import 'package:agro_a_la_mano_dev/assets/custom_icons_icons.dart' ;
+
+import 'package:get/get.dart';
+
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({Key? key}) : super(key: key);
@@ -26,7 +33,9 @@ class CustomBottomNavBar extends StatelessWidget {
           IconButton(
             tooltip: 'Ayuda',
             icon: Icon(Icons.explore_outlined, color: colorCons.GREY_LETTERS_COLOR,),
-            onPressed: () {},
+            onPressed: () {
+
+            },
           ),
 
           Spacer(),
@@ -34,7 +43,12 @@ class CustomBottomNavBar extends StatelessWidget {
           IconButton(
             tooltip: 'Escribe una pregunta',
             icon: Icons_constants.WRITE_QUESTION_ICON,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => QuestionPage()),
+              );
+            },
           ),
 
 
@@ -52,7 +66,14 @@ class CustomBottomNavBar extends StatelessWidget {
           IconButton(
             tooltip: 'Historial de preguntas',
             icon: Icons_constants.HISTORIAL_LIST_ICON,
-            onPressed: () {},
+            onPressed: () {
+              //Get.to(() => GetMaterialApp( home: QuestionHistoryPage() ));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => QuestionHistoryPage()),
+              );
+              //Navigator.push(context, );
+            },
           ),
 
           Spacer(),
@@ -60,7 +81,12 @@ class CustomBottomNavBar extends StatelessWidget {
           IconButton(
             tooltip: 'Ver perfil',
             icon: Icons_constants.PROFILE_ICON,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfilePage()),
+              );
+            },
           ),
 
           Spacer(),

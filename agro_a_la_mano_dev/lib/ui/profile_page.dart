@@ -14,6 +14,7 @@ import 'package:agro_a_la_mano_dev/assets/icons.dart' as Icons_constants;
 //Botton Navigation Bar y Navigation Bar personalizados
 import 'package:agro_a_la_mano_dev/ui/customBottomNavBar.dart';
 import 'package:agro_a_la_mano_dev/ui/customAppBar.dart';
+import 'package:get/get.dart';
 
 
 /*
