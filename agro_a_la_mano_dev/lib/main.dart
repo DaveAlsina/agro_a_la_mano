@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 void main() {
   Get.put(HistoryController());
   Get.put(AuthenticationController());
-  runApp(HomePage());
+  runApp(ProfilePage());
 }
 
 class MyApp extends StatelessWidget {

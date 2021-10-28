@@ -54,6 +54,7 @@ flutter:
 
   assets:
     - img/lechuga.jpg
+    - img/persona_avatar.jpg
     - assets/
 
 

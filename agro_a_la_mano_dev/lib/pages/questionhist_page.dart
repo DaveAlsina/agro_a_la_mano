@@ -1,6 +1,8 @@
 //import 'package:agro_a_la_mano_dev/domain/controllers/authentication_controller.dart';
 //import 'package:agro_a_la_mano_dev/ui/pages/authentication/signup_page.dart';
 import 'package:agro_a_la_mano_dev/controllers/messages_controller.dart';
+import 'package:agro_a_la_mano_dev/pages/comentarios_page.dart';
+import 'package:agro_a_la_mano_dev/pages/post_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -123,7 +125,10 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
                                 icon: Icon(Icons.announcement_outlined),
                                 tooltip: 'Conocer mas acerca de...',
                                 onPressed: () {
-                                  //Get.to(() => SignUpPage());
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => ComentariosPage()),
+                                  );
                                 },
                               ),
                             ),
