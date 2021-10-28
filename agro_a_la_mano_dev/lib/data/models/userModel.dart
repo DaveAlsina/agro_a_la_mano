@@ -1,45 +1,49 @@
 import 'dart:core';
-import 'package:get/get.dart';
 
 
 class UserModel {
 
-   int id;
-   String name;
-   String email;
-   String picture;
-   String password;
-
- UserModel({
-   required this.id,
-   required this.name,
-   required this.email,
-   required this.picture,
-   required this.password,
-  });
+  //int id;
+  //String picture;
+  String name = '';
+  String email = '';
+  String password = '';
 
 
- /* getters */
+  /* getters */
 
-  int getId() => id;
+  //int getId() => id;
+  //String getPicture() => picture;
   String getName() => name;
   String getEmail() => email;
-  String getPicture() => picture;
   String getPassword() => password;
+
+  /* setters */
+
+  bool addInfo(String name, String email, String password){
+
+    this.name = name;
+    this.email = email;
+    this.password = password;
+
+    return true;
+  }
+
 
   Map<String, dynamic> toMap() {
       return {
-        'id': id,
+        //'id': id,
+        //'picture': picture,
         'name': name,
         'email': email,
-        'picture': picture,
         'password': password,
       };
   }
 
   @override
   String toString() {
-    return 'User{id: $id, name: $name, email: $email, picture : $picture, password: $password}';
+      //return 'User{id: $id, name: $name, email: $email, picture : $picture, password: $password}';
+      return 'User{name: $name, email: $email, password: $password}';
   }
 
 }

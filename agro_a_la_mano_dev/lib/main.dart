@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 //para hacer pruebas sencillas de inicialización y métodos
-import 'package:agro_a_la_mano_dev/data/models/testUserModel.dart';
+//import 'package:agro_a_la_mano_dev/data/models/testUserModel.dart';
+
 import 'package:agro_a_la_mano_dev/data/controllers/testUserController.dart';
+import 'data/controllers/userController.dart';
 
 
 Future<void> main() async {
+
 
   runApp(MaterialApp(
     //home:TestUserModel(),
@@ -27,4 +31,9 @@ class MyApp extends StatelessWidget {
   }
 
 }
+
+
+
+
+
 

@@ -9,8 +9,7 @@ void main(){
 
 class  TestUserModel extends  StatelessWidget{
 
-  UserModel usr1 = UserModel(id: 10, name: 'Estefix', email: 'Estefix@anonimo.com', picture: 'nohay.jpg',
-      password: 'gatofeliz');
+  UserModel usr1 = UserModel();
 
   @override
   Widget build(BuildContext context) {
