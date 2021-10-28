@@ -216,14 +216,41 @@ class _SignupPageState extends State<SignupPage> {
                                 _passwordController.text);
                             print(saved);
                             if (saved) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text(
-                                          'Guardado correctamente. Ingrese')));
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: const Text('Bienvenido'),
+                                        content: const Text(
+                                            'Su usuario se ha guardado correctamente. Ingrese'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text('Ok',
+                                                  style: TextStyle(
+                                                      color: colorCons
+                                                          .GREEN_BUTTON_COLOR)))
+                                        ],
+                                      ));
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text('No se pudo guardar')));
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: const Text('Oh oh'),
+                                        content: const Text(
+                                            'Su usuario no se ha guardado correctamente. Intente de nuevo'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text('Ok',
+                                                  style: TextStyle(
+                                                      color: colorCons
+                                                          .GREEN_BUTTON_COLOR)))
+                                        ],
+                                      ));
                             }
                           }
                         },

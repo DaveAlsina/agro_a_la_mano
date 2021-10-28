@@ -20,7 +20,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _messangerKey = GlobalKey<ScaffoldMessengerState>();
   AuthenticationController _authcontroller = Get.find();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -28,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      scaffoldMessengerKey: _messangerKey,
       color: colorCons.BACKGROUND_COLOR,
       home: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -184,9 +182,23 @@ class _LoginPageState extends State<LoginPage> {
                               //     SnackBar(content: Text('User ok')));
                               print('nais');
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Algo salio mal :(')));
-                              print('no tan nais');
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: const Text('Algo salió mal'),
+                                        content: const Text(
+                                            'Su correo o contraseña no coinciden'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text('Ok',
+                                                  style: TextStyle(
+                                                      color: colorCons
+                                                          .GREEN_BUTTON_COLOR)))
+                                        ],
+                                      ));
                             }
                           }
                         },
