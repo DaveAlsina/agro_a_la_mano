@@ -182,23 +182,36 @@ class _LoginPageState extends State<LoginPage> {
                               //     SnackBar(content: Text('User ok')));
                               print('nais');
                             } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                        title: const Text('Algo salió mal'),
-                                        content: const Text(
-                                            'Su correo o contraseña no coinciden'),
-                                        actions: [
-                                          TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: Text('Ok',
-                                                  style: TextStyle(
-                                                      color: colorCons
-                                                          .GREEN_BUTTON_COLOR)))
-                                        ],
-                                      ));
+                              Get.defaultDialog(
+                                  // titlePadding: EdgeInsets.fromLTRB(
+                                  //     24.0, 20.0, 24.0, 24.0),
+                                  radius: 4,
+                                  contentPadding: const EdgeInsets.fromLTRB(
+                                      24.0, 20.0, 24.0, 24.0),
+                                  title: 'Algo salio mal',
+                                  middleText:
+                                      'Su correo o contraseña no son correctos',
+                                  cancel: Text('Ok',
+                                      style: TextStyle(
+                                          color:
+                                              colorCons.GREEN_BUTTON_COLOR)));
+                              // showDialog(
+                              //     context: context,
+                              //     builder: (BuildContext context) =>
+                              //         AlertDialog(
+                              //           title: const Text('Algo salió mal'),
+                              //           content: const Text(
+                              //               'Su correo o contraseña no coinciden'),
+                              //           actions: [
+                              //             TextButton(
+                              //                 onPressed: () =>
+                              //                     Navigator.pop(context),
+                              //                 child: Text('Ok',
+                              //                     style: TextStyle(
+                              //                         color: colorCons
+                              //                             .GREEN_BUTTON_COLOR)))
+                              //           ],
+                              //         ));
                             }
                           }
                         },
