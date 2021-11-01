@@ -20,7 +20,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AuthenticationController _authcontroller = Get.find();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -28,130 +28,56 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      color: colorCons.BACKGROUND_COLOR,
-      home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Form(
-            key: _formKey,
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-                    Widget>[
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 2,
-                child: Container(
-                  height: 130,
-                  padding: EdgeInsets.all(10),
-                  child: Image.asset('brote.png'),
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Form(
+          key: _formKey,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: Container(
+                    height: 130,
+                    padding: EdgeInsets.all(10),
+                    child: Image.asset('brote.png'),
+                  ),
                 ),
-              ),
-              Flexible(
-                  fit: FlexFit.tight,
-                  flex: 1,
-                  child: Column(children: [
-                    Container(
-                      padding: EdgeInsets.all(15),
-                      height: 50,
-                      child: Text(
-                        '¡Bienvenido!',
-                        style: TextStyle(
-                            color: colorCons.BLUE_LETTERS_COLOR,
-                            fontFamily: textCons.TEXT_FONT_CONST,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                    ),
-                    Container(
-                      // padding: EdgeInsets.all(5),
-                      height: 30,
-                      child: Text(
-                        'Introduzca sus datos para registrarse',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: colorCons.BLUE_LETTERS_COLOR,
-                            fontFamily: textCons.TEXT_FONT_CONST,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 16),
-                      ),
-                    )
-                  ])),
-              Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Container(
-                    height: 30,
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Nombre',
+                Flexible(
+                    fit: FlexFit.tight,
+                    flex: 1,
+                    child: Column(children: [
+                      Container(
+                        padding: EdgeInsets.all(15),
+                        height: 50,
+                        child: Text(
+                          '¡Bienvenido!',
                           style: TextStyle(
-                              color: colorCons.GREY_LETTERS_COLOR,
-                              fontFamily: textCons.TEXT_FONT_CONST),
+                              color: colorCons.BLUE_LETTERS_COLOR,
+                              fontFamily: textCons.TEXT_FONT_CONST,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
                         ),
-                        TextFormField(
-                          controller: _nameController,
-                          decoration: InputDecoration(
-                              suffixIcon: iconCons.PROFILE_ICON,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: colorCons.GREEN_BUTTON_COLOR,
-                                ),
-                                borderRadius: BorderRadius.circular(15.0),
-                              )),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter name";
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  )),
-              Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Container(
-                    height: 30,
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Correo',
+                      ),
+                      Container(
+                        // padding: EdgeInsets.all(5),
+                        height: 30,
+                        child: Text(
+                          'Introduzca sus datos para registrarse',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorCons.GREY_LETTERS_COLOR,
-                              fontFamily: textCons.TEXT_FONT_CONST),
+                              color: colorCons.BLUE_LETTERS_COLOR,
+                              fontFamily: textCons.TEXT_FONT_CONST,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16),
                         ),
-                        TextFormField(
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                              suffixIcon: iconCons.EMAIL_ICON,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: colorCons.GREEN_BUTTON_COLOR,
-                                ),
-                                borderRadius: BorderRadius.circular(15.0),
-                              )),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter email";
-                            } else if (!value.contains('@')) {
-                              return "Entre un correo valido";
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  )),
-              Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Container(
+                      )
+                    ])),
+                Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Container(
                       height: 30,
                       padding: EdgeInsets.all(10),
                       child: Column(
@@ -159,16 +85,15 @@ class _SignupPageState extends State<SignupPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Contraseña',
+                            'Nombre',
                             style: TextStyle(
                                 color: colorCons.GREY_LETTERS_COLOR,
                                 fontFamily: textCons.TEXT_FONT_CONST),
                           ),
                           TextFormField(
-                            controller: _passwordController,
-                            obscureText: true,
+                            controller: _nameController,
                             decoration: InputDecoration(
-                                suffixIcon: iconCons.LOCK_ICON,
+                                suffixIcon: iconCons.PROFILE_ICON,
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: colorCons.GREEN_BUTTON_COLOR,
@@ -177,117 +102,192 @@ class _SignupPageState extends State<SignupPage> {
                                 )),
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return "Enter password";
-                              } else if (!value.contains(RegExp(r'[A-Z]'))) {
-                                return "Debe usar mayusculas, minusculas y numeros";
-                              } else if (!value.contains(RegExp(r'[0-9]'))) {
-                                return "Debe usar numeros";
+                                return "Enter name";
                               }
                             },
                           ),
                         ],
-                      ))),
-              Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Column(
-                    children: [
-                      MaterialButton(
-                        minWidth: 150.0,
-                        height: 50,
-                        color: colorCons.GREEN_BUTTON_COLOR,
-                        textColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7)),
-                        child: Text(
-                          'SignUp',
-                          style: TextStyle(
-                              fontFamily: textCons.TEXT_FONT_CONST,
-                              fontSize: 16),
-                        ),
-                        onPressed: () async {
-                          FocusScope.of(context).requestFocus(FocusNode());
-                          final form = _formKey.currentState;
-                          form!.save();
-                          if (form.validate()) {
-                            bool saved = await _authcontroller.signup(
-                                _nameController.text,
-                                _emailController.text,
-                                _passwordController.text);
-                            print(saved);
-                            if (saved) {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                        title: const Text('Bienvenido'),
-                                        content: const Text(
-                                            'Su usuario se ha guardado correctamente. Ingrese'),
-                                        actions: [
-                                          TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: Text('Ok',
-                                                  style: TextStyle(
-                                                      color: colorCons
-                                                          .GREEN_BUTTON_COLOR)))
-                                        ],
-                                      ));
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                        title: const Text('Oh oh'),
-                                        content: const Text(
-                                            'Su usuario no se ha guardado correctamente. Intente de nuevo'),
-                                        actions: [
-                                          TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: Text('Ok',
-                                                  style: TextStyle(
-                                                      color: colorCons
-                                                          .GREEN_BUTTON_COLOR)))
-                                        ],
-                                      ));
-                            }
-                          }
-                        },
                       ),
-                      Container(
+                    )),
+                Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Container(
+                      height: 30,
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Correo',
+                            style: TextStyle(
+                                color: colorCons.GREY_LETTERS_COLOR,
+                                fontFamily: textCons.TEXT_FONT_CONST),
+                          ),
+                          TextFormField(
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                                suffixIcon: iconCons.EMAIL_ICON,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: colorCons.GREEN_BUTTON_COLOR,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15.0),
+                                )),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Enter email";
+                              } else if (!value.contains('@') ||
+                                  !value.contains('.')) {
+                                return "Entre un correo valido";
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    )),
+                Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Container(
+                        height: 30,
                         padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Ya tienes cuenta? ',
+                              'Contraseña',
                               style: TextStyle(
-                                  fontFamily: textCons.TEXT_FONT_CONST,
                                   color: colorCons.GREY_LETTERS_COLOR,
-                                  fontSize: 15),
+                                  fontFamily: textCons.TEXT_FONT_CONST),
                             ),
-                            RichText(
-                                text: TextSpan(
-                                    text: "Ingresa",
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        fontFamily: textCons.TEXT_FONT_CONST,
-                                        color: colorCons.BLUE_LETTERS_COLOR,
-                                        fontSize: 15),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        print('click ingresa');
-                                        Navigator.pop(context);
-                                      }))
+                            TextFormField(
+                              controller: _passwordController,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  suffixIcon: iconCons.LOCK_ICON,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: colorCons.GREEN_BUTTON_COLOR,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  )),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Enter password";
+                                } else if (!value.contains(RegExp(r'[A-Z]'))) {
+                                  return "Debe usar mayusculas, minusculas y numeros";
+                                } else if (!value.contains(RegExp(r'[0-9]'))) {
+                                  return "Debe usar numeros";
+                                } else if (value.length <= 6) {
+                                  return "Minimo 6 caracteres";
+                                }
+                              },
+                            ),
                           ],
+                        ))),
+                Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Column(
+                      children: [
+                        MaterialButton(
+                          minWidth: 150.0,
+                          height: 50,
+                          color: colorCons.GREEN_BUTTON_COLOR,
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7)),
+                          child: Text(
+                            'SignUp',
+                            style: TextStyle(
+                                fontFamily: textCons.TEXT_FONT_CONST,
+                                fontSize: 16),
+                          ),
+                          onPressed: () async {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            final form = _formKey.currentState;
+                            form!.save();
+                            if (form.validate()) {
+                              bool saved = await _authcontroller.signup(
+                                  _nameController.text,
+                                  _emailController.text,
+                                  _passwordController.text);
+                              print(saved);
+                              if (saved) {
+                                Get.defaultDialog(
+                                    // titlePadding: EdgeInsets.fromLTRB(
+                                    //     24.0, 20.0, 24.0, 24.0),
+                                    radius: 4,
+                                    contentPadding: const EdgeInsets.fromLTRB(
+                                        24.0, 20.0, 24.0, 24.0),
+                                    title: 'Bienvenido',
+                                    middleText:
+                                        'Su usuario se ha guardado correctamente',
+                                    custom: TextButton(
+                                        onPressed: () {
+                                          Get.to(() => LoginPage());
+                                        },
+                                        child: Text('Ok',
+                                            style: TextStyle(
+                                                color: colorCons
+                                                    .GREEN_BUTTON_COLOR))));
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: const Text('Oh oh'),
+                                          content: const Text(
+                                              'Su usuario no se ha guardado correctamente. Intente de nuevo'),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () =>
+                                                    {Navigator.pop(context)},
+                                                child: Text('Ok',
+                                                    style: TextStyle(
+                                                        color: colorCons
+                                                            .GREEN_BUTTON_COLOR)))
+                                          ],
+                                        ));
+                              }
+                            }
+                          },
                         ),
-                      )
-                    ],
-                  ))
-            ]),
-          )),
-    );
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Ya tienes cuenta? ',
+                                style: TextStyle(
+                                    fontFamily: textCons.TEXT_FONT_CONST,
+                                    color: colorCons.GREY_LETTERS_COLOR,
+                                    fontSize: 15),
+                              ),
+                              RichText(
+                                  text: TextSpan(
+                                      text: "Ingresa",
+                                      style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          fontFamily: textCons.TEXT_FONT_CONST,
+                                          color: colorCons.BLUE_LETTERS_COLOR,
+                                          fontSize: 15),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          print('click ingresa');
+                                          Get.to(() => LoginPage());
+                                        }))
+                            ],
+                          ),
+                        )
+                      ],
+                    ))
+              ]),
+        ));
   }
 }

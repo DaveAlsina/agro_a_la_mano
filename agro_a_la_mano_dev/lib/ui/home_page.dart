@@ -8,12 +8,14 @@ class HomePage extends StatelessWidget {
   AuthenticationController auth = Get.find();
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (auth.logged) {
-        return Column();
-      } else {
-        return LoginPage();
-      }
-    });
+    return GetMaterialApp(
+      home: Obx(() {
+        if (auth.logged) {
+          return Column();
+        } else {
+          return LoginPage();
+        }
+      }),
+    );
   }
 }
