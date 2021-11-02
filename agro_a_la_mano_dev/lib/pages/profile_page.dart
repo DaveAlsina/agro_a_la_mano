@@ -9,12 +9,10 @@ as colorCons;
 import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
 as textCons;
 
-import 'package:agro_a_la_mano_dev/assets/icons.dart' as Icons_constants;
 
 //Botton Navigation Bar y Navigation Bar personalizados
-import 'package:agro_a_la_mano_dev/ui/customBottomNavBar.dart';
-import 'package:agro_a_la_mano_dev/ui/customAppBar.dart';
-import 'package:get/get.dart';
+import 'package:agro_a_la_mano_dev/widgets/customBottomNavBar.dart';
+import 'package:agro_a_la_mano_dev/widgets/customAppBar.dart';
 
 
 /*
@@ -214,16 +212,3 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
-
-
-/*
-class MyClip extends CustomClipper<Rect> {
-  Rect getClip(Size size) {
-    return Rect.fromLTWH(0, 0, 100, 100);
-  }
-
-  bool shouldReclip(oldClipper) {
-    return false;
-  }
-}
-*/

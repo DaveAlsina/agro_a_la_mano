@@ -1,9 +1,6 @@
-import 'package:agro_a_la_mano_dev/pages/questionask_page.dart';
-import 'package:agro_a_la_mano_dev/pages/questionhist_page.dart';
-import 'package:agro_a_la_mano_dev/ui/profile_page.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 //estilos
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
@@ -13,7 +10,6 @@ as textCons;
 import 'package:agro_a_la_mano_dev/assets/icons.dart' as Icons_constants;
 import 'package:agro_a_la_mano_dev/assets/custom_icons_icons.dart' ;
 
-import 'package:get/get.dart';
 
 
 class CustomBottomNavBar extends StatelessWidget {
@@ -44,10 +40,7 @@ class CustomBottomNavBar extends StatelessWidget {
             tooltip: 'Escribe una pregunta',
             icon: Icons_constants.WRITE_QUESTION_ICON,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => QuestionPage()),
-              );
+              Get.toNamed('/QuestionPage');
             },
           ),
 
@@ -67,12 +60,7 @@ class CustomBottomNavBar extends StatelessWidget {
             tooltip: 'Historial de preguntas',
             icon: Icons_constants.HISTORIAL_LIST_ICON,
             onPressed: () {
-              //Get.to(() => GetMaterialApp( home: QuestionHistoryPage() ));
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => QuestionHistoryPage()),
-              );
-              //Navigator.push(context, );
+              Get.toNamed('/QuestionHistoryPage');
             },
           ),
 
@@ -82,10 +70,7 @@ class CustomBottomNavBar extends StatelessWidget {
             tooltip: 'Ver perfil',
             icon: Icons_constants.PROFILE_ICON,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
-              );
+              Get.toNamed('/ProfilePage');
             },
           ),
 

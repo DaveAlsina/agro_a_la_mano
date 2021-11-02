@@ -35,8 +35,8 @@ class _SignupPageState extends State<SignupPage> {
           body: Form(
             key: _formKey,
             child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-                    Widget>[
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+                Widget>[
               Flexible(
                 fit: FlexFit.tight,
                 flex: 2,
@@ -51,7 +51,7 @@ class _SignupPageState extends State<SignupPage> {
                   flex: 1,
                   child: Column(children: [
                     Container(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(15),
                       height: 50,
                       child: Text(
                         '¡Bienvenido!',
@@ -76,13 +76,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     )
                   ])),
-
               Flexible(
                   flex: 1,
                   fit: FlexFit.tight,
                   child: Container(
                     height: 30,
-                    padding: EdgeInsets.all(5),
+                    padding: EdgeInsets.all(10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,13 +111,12 @@ class _SignupPageState extends State<SignupPage> {
                       ],
                     ),
                   )),
-
               Flexible(
                   flex: 1,
                   fit: FlexFit.tight,
                   child: Container(
-                    height: 20,
-                    padding: EdgeInsets.all(5),
+                    height: 30,
+                    padding: EdgeInsets.all(10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,12 +148,11 @@ class _SignupPageState extends State<SignupPage> {
                       ],
                     ),
                   )),
-
               Flexible(
                   flex: 1,
                   fit: FlexFit.tight,
                   child: Container(
-                      height: 20,
+                      height: 30,
                       padding: EdgeInsets.all(10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -203,7 +200,7 @@ class _SignupPageState extends State<SignupPage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7)),
                         child: Text(
-                          'Login',
+                          'SignUp',
                           style: TextStyle(
                               fontFamily: textCons.TEXT_FONT_CONST,
                               fontSize: 16),
@@ -213,20 +210,47 @@ class _SignupPageState extends State<SignupPage> {
                           final form = _formKey.currentState;
                           form!.save();
                           if (form.validate()) {
-                            bool saved = await _authcontroller.registerUser(
+                            bool saved = await _authcontroller.signup(
                                 _nameController.text,
                                 _emailController.text,
                                 _passwordController.text);
                             print(saved);
                             if (saved) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text(
-                                          'Guardado correctamente. Ingrese')));
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: const Text('Bienvenido'),
+                                        content: const Text(
+                                            'Su usuario se ha guardado correctamente. Ingrese'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text('Ok',
+                                                  style: TextStyle(
+                                                      color: colorCons
+                                                          .GREEN_BUTTON_COLOR)))
+                                        ],
+                                      ));
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text('No se pudo guardar')));
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: const Text('Oh oh'),
+                                        content: const Text(
+                                            'Su usuario no se ha guardado correctamente. Intente de nuevo'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text('Ok',
+                                                  style: TextStyle(
+                                                      color: colorCons
+                                                          .GREEN_BUTTON_COLOR)))
+                                        ],
+                                      ));
                             }
                           }
                         },

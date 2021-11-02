@@ -1,7 +1,5 @@
-//import 'package:ensayos/domain/controllers/authentication_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:agro_a_la_mano_dev/widgets/comment_box.dart';
-//import 'package:get/get.dart';
 
 Color verde = Colors.green[400]!;
 Color gris = Colors.grey[350]!;
