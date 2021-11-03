@@ -1,4 +1,8 @@
+//import 'package:agro_a_la_mano_dev/domain/controllers/authentication_controller.dart';
+//import 'package:agro_a_la_mano_dev/ui/pages/authentication/signup_page.dart';
 import 'package:agro_a_la_mano_dev/controllers/messages_controller.dart';
+import 'package:agro_a_la_mano_dev/pages/comentarios_page.dart';
+import 'package:agro_a_la_mano_dev/pages/post_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,8 +14,8 @@ as textCons;
 import 'package:agro_a_la_mano_dev/assets/icons.dart' as Icons_constants;
 
 //Botton Navigation Bar y Navigation Bar personalizados
-import 'package:agro_a_la_mano_dev/widgets/customBottomNavBar.dart';
-import 'package:agro_a_la_mano_dev/widgets/customAppBar.dart';
+import 'package:agro_a_la_mano_dev/ui/customBottomNavBar.dart';
+import 'package:agro_a_la_mano_dev/ui/customAppBar.dart';
 
 
 
@@ -106,9 +110,17 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
                           cells: <DataCell>[
                             DataCell(
                               Container(
-                                //width: MediaQuery.of(context).size.width * 0.6,
                                 child: TextField(
-                                  decoration: InputDecoration(labelText: fila.id, labelStyle: TextStyle(color: Colors.green, fontSize: 22, fontStyle: FontStyle.italic,),),
+                                  decoration: InputDecoration(
+                                          labelText: fila.id,
+                                          labelStyle: TextStyle(color: Colors.green, fontSize: 22, fontStyle: FontStyle.italic,),
+                                          suffixIcon: Icon(Icons.search),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: colorCons.GREEN_BUTTON_COLOR,
+                                            ),
+                                            borderRadius: BorderRadius.circular(15.0),
+                                          )),
                                   controller: TextEditingController(text: fila.question),
                                   onChanged: (text) {
                                     fila.question = text;
@@ -118,18 +130,13 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
                             ),
                             DataCell(
                               IconButton(
-                                icon: Icon(Icons.announcement_outlined),
+                                icon: Icon(Icons.report_gmailerrorred_sharp),
                                 tooltip: 'Conocer mas acerca de...',
                                 onPressed: () {
-
-                                  Get.toNamed('/QuestionHistoryPage/CommentPage');
-                                  /*
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => ComentariosPage()),
+                                    MaterialPageRoute(builder: (context) => ComentariosPage(question: fila.question)),
                                   );
-                                  */
-
                                 },
                               ),
                             ),

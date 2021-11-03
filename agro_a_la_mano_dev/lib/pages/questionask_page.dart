@@ -14,8 +14,8 @@ as textCons;
 import 'package:agro_a_la_mano_dev/assets/icons.dart' as Icons_constants;
 
 //Botton Navigation Bar y Navigation Bar personalizados
-import 'package:agro_a_la_mano_dev/widgets/customBottomNavBar.dart';
-import 'package:agro_a_la_mano_dev/widgets/customAppBar.dart';
+import 'package:agro_a_la_mano_dev/ui/customBottomNavBar.dart';
+import 'package:agro_a_la_mano_dev/ui/customAppBar.dart';
 
 
 
@@ -30,7 +30,7 @@ class QuestionPage extends StatefulWidget {
 
 class _QuestionPageState extends State<QuestionPage> {
   final _formKey = GlobalKey<FormState>();
-  final _searchController = TextEditingController();
+  final _detailsController = TextEditingController();
   final _questionController = TextEditingController();
   final _themeController = TextEditingController();
   HistoryController histController = Get.find<HistoryController>();
@@ -71,16 +71,17 @@ class _QuestionPageState extends State<QuestionPage> {
                       child: 
                         TextFormField(
                           key: Key('Pregunta'),
-                          controller: _searchController,
-                          decoration: InputDecoration(labelText: 'Pregunta'),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Pregunta invalida";
-                            } else {
-                              return "";
-                            }
-                          },
-                      ),
+                          controller: _questionController,
+                          decoration: InputDecoration(
+                                  labelText: 'Pregunta',
+                                  //suffixIcon: Icon(Icons.search),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: colorCons.GREEN_BUTTON_COLOR,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  )),
+                        ),
                     ),
                     SizedBox(
                       height: 19,
@@ -90,16 +91,17 @@ class _QuestionPageState extends State<QuestionPage> {
                       child: 
                         TextFormField(
                           key: Key('Detalles'),
-                          controller: _questionController,
-                          decoration: InputDecoration(labelText: 'Detalles'),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Por favor detallanos";
-                            } else  {
-                              return "";
-                            }
-                          },
-                      ),
+                          controller: _detailsController,
+                          decoration: InputDecoration(
+                                  labelText: 'Detalles',
+                                  //suffixIcon: Icon(Icons.search),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: colorCons.GREEN_BUTTON_COLOR,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  )),
+                        ),
                     ),
                     SizedBox(
                       height: 19,
@@ -110,17 +112,16 @@ class _QuestionPageState extends State<QuestionPage> {
                         TextFormField(
                           key: Key('Tema'),
                           controller: _themeController,
-                          decoration: InputDecoration(labelText: 'Tema (opcional)'),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Pregunta de nuevo";
-                            } else  {
-                              RowLoc registro = new RowLoc(id:_searchController.text, question:_questionController.text, questioner:"", answer:"", answerer:"");
-                              histController.addHistoryRegister(registro);
-                              return "";
-                            }
-                          },
-                      ),
+                          decoration: InputDecoration(
+                                  labelText: 'Tema (opcional)',
+                                  //suffixIcon: Icon(Icons.search),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: colorCons.GREEN_BUTTON_COLOR,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  )),
+                        ),
                     ),
                     SizedBox(
                       height: 19,
@@ -156,6 +157,10 @@ class _QuestionPageState extends State<QuestionPage> {
                           form!.save();
                           if (form.validate()) {
                             bool value = true;
+                            if (_questionController.text == "") return;
+                            else if (_detailsController.text == "") return;
+                            RowLoc registro = new RowLoc(id:_questionController.text, question:_detailsController.text, questioner:"", answer:"", answerer:"");
+                            histController.addHistoryRegister(registro);
                           } else {
                             bool value = false;
                           }
