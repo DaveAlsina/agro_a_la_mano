@@ -8,17 +8,14 @@ import 'package:get/get.dart';
 
 //estilos, colores, iconos
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
-as colorCons;
+    as colorCons;
 import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
-as textCons;
+    as textCons;
 import 'package:agro_a_la_mano_dev/assets/icons.dart' as Icons_constants;
 
 //Botton Navigation Bar y Navigation Bar personalizados
 import 'package:agro_a_la_mano_dev/widgets/customBottomNavBar.dart';
 import 'package:agro_a_la_mano_dev/widgets/customAppBar.dart';
-
-
-
 
 class QuestionHistoryPage extends StatefulWidget {
   const QuestionHistoryPage({Key? key}) : super(key: key);
@@ -101,47 +98,50 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
             rows: filas
                 .map(
                   (fila) => DataRow(
-                          selected: filasSeleccionadas.contains(fila),
-                          onSelectChanged: (b) {
-                            String? fila_id = fila.id;
-                            print("Onselect $fila_id: $b");
-                            onSelectedRow(b, fila);
-                          },
-                          cells: <DataCell>[
-                            DataCell(
-                              Container(
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                          labelText: fila.id,
-                                          labelStyle: TextStyle(color: Colors.green, fontSize: 22, fontStyle: FontStyle.italic,),
-                                          suffixIcon: Icon(Icons.search),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: colorCons.GREEN_BUTTON_COLOR,
-                                            ),
-                                            borderRadius: BorderRadius.circular(15.0),
-                                          )),
-                                  controller: TextEditingController(text: fila.question),
-                                  onChanged: (text) {
-                                    fila.question = text;
-                                  },
+                      selected: filasSeleccionadas.contains(fila),
+                      onSelectChanged: (b) {
+                        String? fila_id = fila.id;
+                        print("Onselect $fila_id: $b");
+                        onSelectedRow(b, fila);
+                      },
+                      cells: <DataCell>[
+                        DataCell(Container(
+                          child: TextField(
+                            decoration: InputDecoration(
+                                labelText: fila.id,
+                                labelStyle: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 22,
+                                  fontStyle: FontStyle.italic,
                                 ),
-                              )
-                            ),
-                            DataCell(
-                              IconButton(
-                                icon: Icon(Icons.report_gmailerrorred_sharp),
-                                tooltip: 'Conocer mas acerca de...',
-                                onPressed: () {
-                                  Get.toNamed('/QuestionHistoryPage/CommentPage');
-                                },
-                              ),
-                            ),
-                          ]),
+                                suffixIcon: Icon(Icons.search),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: colorCons.GREEN_BUTTON_COLOR,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15.0),
+                                )),
+                            controller:
+                                TextEditingController(text: fila.question),
+                            onChanged: (text) {
+                              fila.question = text;
+                            },
+                          ),
+                        )),
+                        DataCell(
+                          IconButton(
+                            icon: Icon(Icons.report_gmailerrorred_sharp),
+                            tooltip: 'Conocer mas acerca de...',
+                            onPressed: () {
+                              Get.toNamed('/QuestionHistoryPage/CommentPage');
+                            },
+                          ),
+                        ),
+                      ]),
                 )
                 .toList(),
           ),
-        ], 
+        ],
       ),
     );
   }
@@ -149,21 +149,16 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: PreferredSize(
-
-        preferredSize: const Size.fromHeight(80.0),
+        preferredSize: const Size.fromHeight(100.0),
         child: Container(
           decoration: const BoxDecoration(
             color: colorCons.GREEN_BUTTON_COLOR,
           ),
           child: AppBarContent('Historial'),
         ),
-
       ),
-
       bottomNavigationBar: CustomBottomNavBar(),
-
       body: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,

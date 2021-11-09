@@ -72,9 +72,11 @@ class AuthenticationController extends GetxController {
   // return Future.value(false);
   // }
 
-  // Future<bool> logout() async {
-  // await lp.storeData<bool>("logged", false);
-  // setLogged(false);
-  // return Future.value(true);
-  // }
+  Future<bool> logout() async {
+    // await lp.storeData<bool>("logged", false);
+    dynamic response = await _auth.signOut();
+    print(response);
+    setLogged(false);
+    return true;
+  }
 }

@@ -5,20 +5,16 @@ import 'package:agro_a_la_mano_dev/controllers/messages_controller.dart';
 import 'package:agro_a_la_mano_dev/data/local_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 //estilos, colores, iconos
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
-as colorCons;
+    as colorCons;
 import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
-as textCons;
+    as textCons;
 import 'package:agro_a_la_mano_dev/assets/icons.dart' as Icons_constants;
 
 //Botton Navigation Bar y Navigation Bar personalizados
 import 'package:agro_a_la_mano_dev/widgets/customBottomNavBar.dart';
 import 'package:agro_a_la_mano_dev/widgets/customAppBar.dart';
-
-
-
 
 //import 'profile_page.dart';
 
@@ -37,9 +33,7 @@ class _QuestionPageState extends State<QuestionPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: PreferredSize(
-
         preferredSize: const Size.fromHeight(79.0),
         child: Container(
           decoration: const BoxDecoration(
@@ -47,11 +41,8 @@ class _QuestionPageState extends State<QuestionPage> {
           ),
           child: AppBarContent('Haz una pregunta'),
         ),
-
       ),
-
       bottomNavigationBar: CustomBottomNavBar(),
-
       key: Key('QuestionScaffold'),
       body: Center(
         child: Column(
@@ -68,84 +59,78 @@ class _QuestionPageState extends State<QuestionPage> {
                     ),
                     ConstrainedBox(
                       constraints: BoxConstraints.tight(const Size(199, 50)),
-                      child: 
-                        TextFormField(
-                          key: Key('Pregunta'),
-                          controller: _questionController,
-                          decoration: InputDecoration(
-                                  labelText: 'Pregunta',
-                                  //suffixIcon: Icon(Icons.search),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: colorCons.GREEN_BUTTON_COLOR,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  )),
-                        ),
+                      child: TextFormField(
+                        key: Key('Pregunta'),
+                        controller: _questionController,
+                        decoration: InputDecoration(
+                            labelText: 'Pregunta',
+                            //suffixIcon: Icon(Icons.search),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: colorCons.GREEN_BUTTON_COLOR,
+                              ),
+                              borderRadius: BorderRadius.circular(15.0),
+                            )),
+                      ),
                     ),
                     SizedBox(
                       height: 19,
                     ),
                     ConstrainedBox(
                       constraints: BoxConstraints.tight(const Size(199, 50)),
-                      child: 
-                        TextFormField(
-                          key: Key('Detalles'),
-                          controller: _detailsController,
-                          decoration: InputDecoration(
-                                  labelText: 'Detalles',
-                                  //suffixIcon: Icon(Icons.search),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: colorCons.GREEN_BUTTON_COLOR,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  )),
-                        ),
+                      child: TextFormField(
+                        key: Key('Detalles'),
+                        controller: _detailsController,
+                        decoration: InputDecoration(
+                            labelText: 'Detalles',
+                            //suffixIcon: Icon(Icons.search),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: colorCons.GREEN_BUTTON_COLOR,
+                              ),
+                              borderRadius: BorderRadius.circular(15.0),
+                            )),
+                      ),
                     ),
                     SizedBox(
                       height: 19,
                     ),
                     ConstrainedBox(
                       constraints: BoxConstraints.tight(const Size(199, 50)),
-                      child: 
-                        TextFormField(
-                          key: Key('Tema'),
-                          controller: _themeController,
-                          decoration: InputDecoration(
-                                  labelText: 'Tema (opcional)',
-                                  //suffixIcon: Icon(Icons.search),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: colorCons.GREEN_BUTTON_COLOR,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  )),
-                        ),
+                      child: TextFormField(
+                        key: Key('Tema'),
+                        controller: _themeController,
+                        decoration: InputDecoration(
+                            labelText: 'Tema (opcional)',
+                            //suffixIcon: Icon(Icons.search),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: colorCons.GREEN_BUTTON_COLOR,
+                              ),
+                              borderRadius: BorderRadius.circular(15.0),
+                            )),
+                      ),
                     ),
                     SizedBox(
                       height: 19,
                     ),
                     Container(
-                      width: 99.0,
-                      height: 99.0,
-                      child:
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.add_a_photo_outlined),
-                              tooltip: 'Incluir imagen (opcional)',
-                              onPressed: () {
-                                setState(() {
-                                
-                                });
-                              },
-                            ),
-                            Text('Incluir imagen (Opcional)', textAlign: TextAlign.center,),
-                          ]
-                        )
-                    ),               
+                        width: 99.0,
+                        height: 99.0,
+                        child:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+                          IconButton(
+                            icon: Icon(Icons.add_a_photo_outlined),
+                            tooltip: 'Incluir imagen (opcional)',
+                            onPressed: () {
+                              setState(() {});
+                            },
+                          ),
+                          Text(
+                            'Incluir imagen (Opcional)',
+                            textAlign: TextAlign.center,
+                          ),
+                        ])),
                     SizedBox(
                       height: 19,
                     ),
@@ -157,9 +142,15 @@ class _QuestionPageState extends State<QuestionPage> {
                           form!.save();
                           if (form.validate()) {
                             bool value = true;
-                            if (_questionController.text == "") return;
+                            if (_questionController.text == "")
+                              return;
                             else if (_detailsController.text == "") return;
-                            RowLoc registro = new RowLoc(id:_questionController.text, question:_detailsController.text, questioner:"", answer:"", answerer:"");
+                            RowLoc registro = new RowLoc(
+                                id: _questionController.text,
+                                question: _detailsController.text,
+                                questioner: "",
+                                answer: "",
+                                answerer: "");
                             histController.addHistoryRegister(registro);
                           } else {
                             bool value = false;

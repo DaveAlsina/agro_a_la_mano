@@ -18,4 +18,14 @@ class DatabaseService {
       "picture": picture,
     });
   }
+
+  Future saveQuestion(
+      String pregunta, String detalles, String tema, String image) async {
+    return await agroCollection.doc(uid).set({
+      'question': pregunta,
+      "details": detalles,
+      "theme": tema,
+      "picture": image,
+    });
+  }
 }

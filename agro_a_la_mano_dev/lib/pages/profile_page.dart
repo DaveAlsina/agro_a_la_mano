@@ -1,19 +1,19 @@
 //librerias estándar
+import 'package:agro_a_la_mano_dev/controllers/authentication_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //estilos y colores
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
-as colorCons;
+    as colorCons;
 
 import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
-as textCons;
-
+    as textCons;
 
 //Botton Navigation Bar y Navigation Bar personalizados
 import 'package:agro_a_la_mano_dev/widgets/customBottomNavBar.dart';
 import 'package:agro_a_la_mano_dev/widgets/customAppBar.dart';
-
+import 'package:get/get.dart';
 
 /*
 	Atributos:	-> No tiene atributos.
@@ -21,7 +21,6 @@ import 'package:agro_a_la_mano_dev/widgets/customAppBar.dart';
 	Descripción: 	Esta es la implementación de la vista de la página del perfil
 	              usuario.
 */
-
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -31,33 +30,28 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   late TextEditingController _nameController = TextEditingController();
   late TextEditingController _ = TextEditingController();
+  AuthenticationController _authcontroller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       home: Scaffold(
-          body: Container(
-            color: colorCons.BACKGROUND_COLOR,
-
-            child: Column(
-
+        body: Container(
+          color: colorCons.BACKGROUND_COLOR,
+          child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-
               children: <Widget>[
-
                 // IMAGEN DE PERFIL
 
-                 Container(
+                Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(5),
                   child: ClipOval(
                     child: Image.asset(
-                      '../img/lechuga.jpg',
+                      'img/persona_avatar.jpg',
                       fit: BoxFit.cover,
                       width: 80,
                       height: 80,
@@ -68,134 +62,132 @@ class _ProfilePageState extends State<ProfilePage> {
                 //BOTON PARA CAMBIAR LA IMAGEN DE PERFIL
 
                 TextButton(
-
-                      onPressed: (){},
-                      child: Text('Cambiar foto',
-                                style: TextStyle(fontFamily: textCons.TEXT_FONT_CONST,
-                                                  color: colorCons.GREY_LETTERS_COLOR,),
-                      ),
+                  onPressed: () {},
+                  child: Text(
+                    'Cambiar foto',
+                    style: TextStyle(
+                      fontFamily: textCons.TEXT_FONT_CONST,
+                      color: colorCons.GREY_LETTERS_COLOR,
+                    ),
                   ),
+                ),
 
+                SizedBox(
+                  height: 40,
+                ),
 
-                  SizedBox(height: 40,),
-
-                  /*
+                /*
                   Nombre y campo para cambiarlo
                    */
 
-                  Row(
-
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-
-                      children: <Widget>[
-
-
-                        SizedBox(width: 40,),
-
-                        Flexible(child:
-                          Text('Nombre'),
-                          flex: 2,
-                        ),
-
-                        SizedBox(width: 20,),
-
-                          Flexible(
-                              flex: 5,
-                              child:
-                              Container(
-                                child:
-                                  TextField(
-                                    obscureText: true,
-                                    controller: _nameController,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Nombre del Usuario',
-                                      suffixIcon: Icon(Icons.border_color_sharp, color: colorCons.GREY_LETTERS_COLOR,),
-                                    ),
-                                  ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 40,
+                      ),
+                      Flexible(
+                        child: Text('Nombre'),
+                        flex: 2,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Flexible(
+                        flex: 5,
+                        child: Container(
+                          child: TextField(
+                            obscureText: true,
+                            controller: _nameController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Nombre del Usuario',
+                              suffixIcon: Icon(
+                                Icons.border_color_sharp,
+                                color: colorCons.GREY_LETTERS_COLOR,
                               ),
+                            ),
                           ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 40,
+                      ),
+                    ]),
 
-                        SizedBox(width: 40,),
-
-                    ]
-                  ),
-
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
 
                 /*
                   Correo y campo para cambiarlo
                 */
 
                 Row(
-
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-
                     children: <Widget>[
-
-
-                      SizedBox(width: 40,),
-
-                      Flexible(child:
-                      Text('Correo  '),
+                      SizedBox(
+                        width: 40,
+                      ),
+                      Flexible(
+                        child: Text('Correo  '),
                         flex: 2,
                       ),
-
-                      SizedBox(width: 20,),
-
+                      SizedBox(
+                        width: 20,
+                      ),
                       Flexible(
                         flex: 5,
-                        child:
-                        Container(
-                          child:
-                          TextField(
+                        child: Container(
+                          child: TextField(
                             obscureText: true,
                             controller: _nameController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Usuario@correo.com',
-                              suffixIcon: Icon(Icons.border_color_sharp, color: colorCons.GREY_LETTERS_COLOR,),
+                              suffixIcon: Icon(
+                                Icons.border_color_sharp,
+                                color: colorCons.GREY_LETTERS_COLOR,
+                              ),
                             ),
                           ),
                         ),
                       ),
+                      SizedBox(
+                        width: 40,
+                      ),
+                    ]),
 
-                      SizedBox(width: 40,),
-
-                    ]
-                ),
-
-               Spacer(),
-               Spacer(),
+                Spacer(),
+                Spacer(),
 
                 //BOTÓN PARA CERRAR SESIÓN
 
                 Flexible(
                   flex: 1,
-                  child:
-                  TextButton(
-                      onPressed: () =>(){},
-                      onLongPress: () => (){},
-                      child: Text('Cerrar sesión',
-                        style: TextStyle(fontWeight: FontWeight.bold,
-                                          fontFamily: textCons.TEXT_FONT_CONST,
-                        ),
+                  child: TextButton(
+                    onPressed: () {
+                      _authcontroller.logout();
+                    },
+                    onLongPress: () => () {},
+                    child: Text(
+                      'Cerrar sesión',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: textCons.TEXT_FONT_CONST,
                       ),
-                     style: TextButton.styleFrom(
-                       padding: EdgeInsets.fromLTRB(25, 5, 25, 5),
-                       primary: Colors.white,
-                       backgroundColor: Colors.black38,
-                     ),
+                    ),
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.fromLTRB(25, 5, 25, 5),
+                      primary: Colors.white,
+                      backgroundColor: Colors.black38,
+                    ),
                   ),
                 ),
-
-              ]
-            ),
-          ),
-
-
+              ]),
+        ),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(80.0),
           child: Container(
@@ -205,9 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: AppBarContent('Perfil'),
           ),
         ),
-
-          bottomNavigationBar: CustomBottomNavBar(),
-
+        bottomNavigationBar: CustomBottomNavBar(),
       ),
     );
   }
