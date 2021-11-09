@@ -35,15 +35,15 @@ class _SignupPageState extends State<SignupPage> {
           body: Form(
             key: _formKey,
             child:
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-                Widget>[
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+                    Widget>[
               Flexible(
                 fit: FlexFit.tight,
                 flex: 2,
                 child: Container(
                   height: 130,
                   padding: EdgeInsets.all(10),
-                  child: Image.asset('brote.png'),
+                  child: Image.asset('assets/images/brote.png'),
                 ),
               ),
               Flexible(

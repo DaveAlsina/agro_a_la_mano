@@ -1,0 +1,39 @@
+{
+    "project_info": {
+      "project_number": "74950301124",
+      "project_id": "agro-a-la-mano-test",
+      "storage_bucket": "agro-a-la-mano-test.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:74950301124:android:a48768be79dda251f2c091",
+          "android_client_info": {
+            "package_name": "com.macc.agro_a_la_mano_dev"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "74950301124-2su9708pnm5d2nu0habej3stjun4ipgs.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyCzP5zrNmt8qsnUzoahqztxs1d-XoL3K6E"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "74950301124-2su9708pnm5d2nu0habej3stjun4ipgs.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }

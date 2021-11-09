@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
-as colorCons;
+    as colorCons;
 import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
-as textCons;
+    as textCons;
 import 'package:agro_a_la_mano_dev/assets/icons.dart' as iconCons;
 
 class LoginPage extends StatefulWidget {
@@ -34,15 +34,15 @@ class _LoginPageState extends State<LoginPage> {
           body: Form(
             key: _formKey,
             child:
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-                Widget>[
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+                    Widget>[
               Flexible(
                 fit: FlexFit.tight,
                 flex: 2,
                 child: Container(
                   height: 130,
                   padding: EdgeInsets.all(10),
-                  child: Image.asset('brote.png'),
+                  child: Image.asset('assets/images/brote.png'),
                 ),
               ),
               Flexible(
@@ -184,18 +184,18 @@ class _LoginPageState extends State<LoginPage> {
                               print('nais');
                             } else {
                               Get.defaultDialog(
-                                // titlePadding: EdgeInsets.fromLTRB(
-                                //     24.0, 20.0, 24.0, 24.0),
+                                  // titlePadding: EdgeInsets.fromLTRB(
+                                  //     24.0, 20.0, 24.0, 24.0),
                                   radius: 4,
                                   contentPadding: const EdgeInsets.fromLTRB(
                                       24.0, 20.0, 24.0, 24.0),
                                   title: 'Algo salio mal',
                                   middleText:
-                                  'Su correo o contraseña no son correctos',
+                                      'Su correo o contraseña no son correctos',
                                   cancel: Text('Ok',
                                       style: TextStyle(
                                           color:
-                                          colorCons.GREEN_BUTTON_COLOR)));
+                                              colorCons.GREEN_BUTTON_COLOR)));
                               // showDialog(
                               //     context: context,
                               //     builder: (BuildContext context) =>
