@@ -26,11 +26,11 @@ Es una aplicación móvil que busca ayudar a conectar el agro colombiano.
 
  5. Seleccione el dispositivo de emulador y oprima el botón de play. 
  
-![Como oprimir y ejecutar](/doc/images/Screenshot 2021-11-11 170252.png)
+![Como oprimir y ejecutar](./doc/images/Screenshot 2021-11-11 170252.png)
 
 6. Podrá ver e interactuar con la app.
 
-![Vista inicial de la app](/doc/images/Screenshot 2021-11-11 170252.png)
+![Vista inicial de la app](./doc/images/Screenshot 2021-11-11 170252.png)
 
 
 
