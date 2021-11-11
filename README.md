@@ -30,7 +30,7 @@ Es una aplicación móvil que busca ayudar a conectar el agro colombiano.
 
 6. Podrá ver e interactuar con la app.
 
-![Vista inicial de la app](./doc/images/initial_visualization.png)
+![Vista inicial de la app](./doc/images/primera_visualizacion.gif)
 
 
 
