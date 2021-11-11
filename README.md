@@ -21,11 +21,23 @@ Es una aplicación móvil que busca ayudar a conectar el agro colombiano.
  	O también descargue el proyecto como zip y descomprima.
  
  3. Una vez en Android Studio puede abrir la carpeta del proyecto, y esperar a que carguen todas las librerías y partes necesarias para correr la aplicación.
+
  4. Si no tenía Android Studio desde antes hará falta un paso extra, y esto es añadir un emulador para que corra la aplicación desde un _teléfono virtual_, algo así como una máquina virtual, para hacerlo puede leer [aquí](https://www.xatakandroid.com/programacion-android/como-instalar-emulador-android-studio-para-usar-android-pc-1).
+
  5. Seleccione el dispositivo de emulador y oprima el botón de play. 
  
-![[./doc/images/Screenshot 2021-11-11 170252.png]]
+![Como oprimir y ejecutar][/doc/images/Screenshot 2021-11-11 170252.png]
 
 6. Podrá ver e interactuar con la app.
 
-![[./doc/images/Screenshot 2021-11-11 170252.png]]
+![Vista inicial de la app][/doc/images/Screenshot 2021-11-11 170252.png]
+
+
+
+
+
+
+
+
+
+
