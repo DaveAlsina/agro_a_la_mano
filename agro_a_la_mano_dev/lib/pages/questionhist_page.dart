@@ -73,6 +73,7 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
       child: Column(
         children: <Widget>[
           DataTable(
+            dataRowHeight: 80,
             sortAscending: sort,
             sortColumnIndex: 0,
             columns: [
@@ -149,8 +150,9 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: colorCons.BACKGROUND_COLOR,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100.0),
+        preferredSize: const Size.fromHeight(79.0),
         child: Container(
           decoration: const BoxDecoration(
             color: colorCons.GREEN_BUTTON_COLOR,

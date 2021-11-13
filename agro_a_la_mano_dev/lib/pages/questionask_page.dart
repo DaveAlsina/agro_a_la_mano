@@ -33,6 +33,8 @@ class _QuestionPageState extends State<QuestionPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: colorCons.BACKGROUND_COLOR,
+      resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(79.0),
         child: Container(
@@ -58,13 +60,15 @@ class _QuestionPageState extends State<QuestionPage> {
                       height: 19,
                     ),
                     ConstrainedBox(
-                      constraints: BoxConstraints.tight(const Size(199, 50)),
+                      constraints: BoxConstraints.tight(const Size(320, 60)),
                       child: TextFormField(
                         key: Key('Pregunta'),
                         controller: _questionController,
                         decoration: InputDecoration(
                             labelText: 'Pregunta',
                             //suffixIcon: Icon(Icons.search),
+                            floatingLabelStyle:
+                                TextStyle(color: colorCons.GREEN_BUTTON_COLOR),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: colorCons.GREEN_BUTTON_COLOR,
@@ -77,13 +81,15 @@ class _QuestionPageState extends State<QuestionPage> {
                       height: 19,
                     ),
                     ConstrainedBox(
-                      constraints: BoxConstraints.tight(const Size(199, 50)),
+                      constraints: BoxConstraints.tight(const Size(320, 60)),
                       child: TextFormField(
                         key: Key('Detalles'),
                         controller: _detailsController,
                         decoration: InputDecoration(
                             labelText: 'Detalles',
                             //suffixIcon: Icon(Icons.search),
+                            floatingLabelStyle:
+                                TextStyle(color: colorCons.GREEN_BUTTON_COLOR),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: colorCons.GREEN_BUTTON_COLOR,
@@ -96,11 +102,13 @@ class _QuestionPageState extends State<QuestionPage> {
                       height: 19,
                     ),
                     ConstrainedBox(
-                      constraints: BoxConstraints.tight(const Size(199, 50)),
+                      constraints: BoxConstraints.tight(const Size(320, 60)),
                       child: TextFormField(
                         key: Key('Tema'),
                         controller: _themeController,
                         decoration: InputDecoration(
+                            floatingLabelStyle:
+                                TextStyle(color: colorCons.GREEN_BUTTON_COLOR),
                             labelText: 'Tema (opcional)',
                             //suffixIcon: Icon(Icons.search),
                             focusedBorder: OutlineInputBorder(
@@ -157,7 +165,7 @@ class _QuestionPageState extends State<QuestionPage> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
+                          primary: colorCons.GREEN_BUTTON_COLOR,
                           onPrimary: Colors.white,
                         ),
                         child: Text("Preguntar")),
