@@ -1,20 +1,31 @@
 import 'package:agro_a_la_mano_dev/data/repositories/models/userModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // user obj based on firebaseUser
-  UserFirebase _userFromFirebase(UserCredential user) {
-    return UserFirebase(uid: user.credential.toString());
+  UserFirebase _userFromFirebase(
+      UserCredential user, String email, String name, String picture) {
+    return UserFirebase(
+        uid: user.user!.uid.toString(),
+        email: email,
+        name: name,
+        picture: picture);
   }
 
   // Sign in with email and password
-  Future signUpEmailAndPass(String email, String password) async {
+  Future<UserFirebase?> signUpEmailAndPass(
+      String email, String password) async {
     try {
       UserCredential user = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      return _userFromFirebase(user);
+
+      print('El usuario del login es ' + user.toString());
+      UserFirebase fireUser = _userFromFirebase(
+          user, email, user.additionalUserInfo!.username.toString(), '');
+      return fireUser;
     } catch (e) {
       print(e.toString());
       return null;
@@ -22,11 +33,15 @@ class AuthService {
   }
 
   // Register with email and password
-  Future registerEmailAndPass(String email, String password) async {
+  Future<UserFirebase?> registerEmailAndPass(
+      String email, String password, String name) async {
     try {
       UserCredential user = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      return _userFromFirebase(user);
+      var myUser = _auth.currentUser;
+      await myUser!.updateDisplayName(name);
+      print("This is the current user: " + myUser.toString());
+      return _userFromFirebase(user, email, name, '');
     } catch (e) {
       print(e.toString());
       return null;

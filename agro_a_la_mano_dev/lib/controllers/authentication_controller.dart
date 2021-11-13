@@ -7,6 +7,8 @@ class AuthenticationController extends GetxController {
   AuthService _auth = AuthService();
   var _logged = false.obs;
 
+  // DatabaseService _database = DatabaseService(uid: _uid.value);
+
   bool get logged => _logged.value;
 
   void setLogged(bool l) {
@@ -23,28 +25,6 @@ class AuthenticationController extends GetxController {
     setLogged(false);
   }
 
-  // Future<bool> registerUser(String name, String email, String pass) async {
-  //   // await lp.storeData<String>("name", name);
-  //   // await lp.storeData<String>("password", pass);
-  //   // await lp.storeData<String>("email", email);
-
-  //   await DatabaseService(uid: email).updateUserData(name, email, pass, '');
-  //   return Future.value(true);
-  // }
-
-  // Future<bool> login(email, password) async {
-  // String emailT = await lp.retrieveData<String>("email") ?? "";
-  // String passwordT = await lp.retrieveData<String>("password") ?? "";
-
-  // if (emailT == email && passwordT == password) {
-  // await lp.storeData<bool>("logged", true);
-  // setLogged(true);
-  // } else {
-  // await lp.storeData<bool>("logged", false);
-  // setLogged(false);
-  // }
-  // return Future.value(_logged.value);
-  // }
   Future<bool> login(email, password) async {
     dynamic response = await _auth.signUpEmailAndPass(email, password);
     if (response == null) {
@@ -52,25 +32,19 @@ class AuthenticationController extends GetxController {
       return false;
     } else {
       setLogged(true);
+      print(response);
       return true;
     }
   }
 
   Future<bool> signup(name, email, password) async {
-    dynamic response = await _auth.registerEmailAndPass(email, password);
+    dynamic response = await _auth.registerEmailAndPass(email, password, name);
     if (response == null) {
       return false;
     } else {
       return true;
     }
-    // String emailT = await lp.retrieveData<String>("email") ?? "";
-    // if (emailT != name) {
-    // await registerUser(name, email, password);
-    // return Future.value(true);
   }
-
-  // return Future.value(false);
-  // }
 
   Future<bool> logout() async {
     // await lp.storeData<bool>("logged", false);
@@ -79,4 +53,13 @@ class AuthenticationController extends GetxController {
     setLogged(false);
     return true;
   }
+
+  // Future<bool> saveUser(String email, String name, String picture) async {
+  //   dynamic response = await _database.saveUserData(name, email, picture);
+  //   if (response == null) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 }

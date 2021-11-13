@@ -9,15 +9,15 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('users');
 
   //ESTO NO SE ESTA USANDO PARA EL LOGIN!!! ASI SE METE INFO EN FIREBASE
-  Future updateUserData(
-      String name, String email, String password, String picture) async {
-    return await agroCollection.doc(uid).set({
-      'name': name,
-      "email": email,
-      "password": password,
-      "picture": picture,
-    });
-  }
+  //Update: este metodo creo que ya no hace falta
+  //:D
+  // Future saveUserData(String name, String email, String picture) async {
+  //   return await agroCollection.doc(uid).set({
+  //     'name': name,
+  //     "email": email,
+  //     "picture": picture,
+  //   });
+  // }
 
   Future saveQuestion(
       String pregunta, String detalles, String tema, String image) async {
