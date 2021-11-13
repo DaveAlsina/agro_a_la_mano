@@ -1,4 +1,5 @@
 import 'package:agro_a_la_mano_dev/controllers/authentication_controller.dart';
+import 'package:agro_a_la_mano_dev/firebaseApi/firebase_api.dart';
 import 'package:agro_a_la_mano_dev/pages/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -25,6 +26,7 @@ class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -214,6 +216,8 @@ class _SignupPageState extends State<SignupPage> {
                                 _nameController.text,
                                 _emailController.text,
                                 _passwordController.text);
+
+
                             print(saved);
                             if (saved) {
                               showDialog(
@@ -233,6 +237,7 @@ class _SignupPageState extends State<SignupPage> {
                                                           .GREEN_BUTTON_COLOR)))
                                         ],
                                       ));
+
                             } else {
                               showDialog(
                                   context: context,
@@ -251,6 +256,8 @@ class _SignupPageState extends State<SignupPage> {
                                                           .GREEN_BUTTON_COLOR)))
                                         ],
                                       ));
+
+
                             }
                           }
                         },

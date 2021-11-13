@@ -15,6 +15,11 @@ import 'package:agro_a_la_mano_dev/widgets/customBottomNavBar.dart';
 import 'package:agro_a_la_mano_dev/widgets/customAppBar.dart';
 import 'package:get/get.dart';
 
+
+// librerias nuevas desde 12 de Nov
+import 'package:agro_a_la_mano_dev/controllers/files_controller.dart';
+
+
 /*
 	Atributos:	-> No tiene atributos.
 
@@ -31,8 +36,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   late TextEditingController _nameController = TextEditingController();
-  late TextEditingController _ = TextEditingController();
+  late TextEditingController _passwordController = TextEditingController();
   AuthenticationController _authcontroller = Get.find();
+  FileController _fileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +56,22 @@ class _ProfilePageState extends State<ProfilePage> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(5),
                   child: ClipOval(
-                    child: Image.asset(
-                      'img/persona_avatar.jpg',
-                      fit: BoxFit.cover,
-                      width: 80,
-                      height: 80,
+
+                    // si no hay url de imagen de perfil entonces pone la imagen por defecto
+                    child: Obx(() =>(
+                          _fileController.profileImageUrl.value.isEmpty?
+                          Image.asset(
+                            'img/persona_avatar.jpg',
+                            fit: BoxFit.cover,
+                            width: 80,
+                            height: 80,
+                          ) : Image.network(
+                            _fileController.profileImageUrl.value,
+                            fit: BoxFit.cover,
+                            width: 80,
+                            height: 80,
+                          )
+                        ),
                     ),
                   ),
                 ),
@@ -62,7 +79,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 //BOTON PARA CAMBIAR LA IMAGEN DE PERFIL
 
                 TextButton(
-                  onPressed: () {},
+                  onPressed: ()async{
+                        bool response  = await _fileController.uploadProfilePic();
+                        if(response){
+                          Get.snackbar('Imagen Actualizada',
+                                       'Ahora tienes nueva foto de perfil.',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        backgroundColor: colorCons.LIGHT_GREEN_BUTTON_COLOR,
+                          );
+                        }
+                    },
                   child: Text(
                     'Cambiar foto',
                     style: TextStyle(
@@ -88,7 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: 40,
                       ),
                       Flexible(
-                        child: Text('Nombre'),
+                        child: Text('Nombre      '),
                         flex: 2,
                       ),
                       SizedBox(
@@ -132,7 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: 40,
                       ),
                       Flexible(
-                        child: Text('Correo  '),
+                        child: Text('Contraseña'),
                         flex: 2,
                       ),
                       SizedBox(
@@ -143,7 +169,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Container(
                           child: TextField(
                             obscureText: true,
-                            controller: _nameController,
+                            controller: _passwordController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Usuario@correo.com',

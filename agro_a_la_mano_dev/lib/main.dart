@@ -1,4 +1,5 @@
 //paquetes de las páginas implementadas
+import 'package:agro_a_la_mano_dev/controllers/files_controller.dart';
 import 'package:agro_a_la_mano_dev/pages/comentarios_page.dart';
 import 'package:agro_a_la_mano_dev/pages/home_page.dart';
 import 'package:agro_a_la_mano_dev/pages/questionhist_page.dart';
@@ -22,8 +23,9 @@ import 'package:get/get.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Get.put(HistoryController());
-  Get.put(AuthenticationController());
+  await Get.put(HistoryController());
+  await Get.put(AuthenticationController());
+
   runApp(GetMaterialApp(
     home: HomePage(),
     getPages: [
