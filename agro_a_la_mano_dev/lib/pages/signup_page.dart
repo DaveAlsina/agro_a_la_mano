@@ -141,7 +141,9 @@ class _SignupPageState extends State<SignupPage> {
                             if (value!.isEmpty) {
                               return "Enter email";
                             } else if (!value.contains('@')) {
-                              return "Entre un correo valido";
+                              return "Entre un correo válido";
+                            } else if (!value.contains('.')) {
+                              return "Use un correo válido";
                             }
                           },
                         ),
@@ -182,6 +184,8 @@ class _SignupPageState extends State<SignupPage> {
                                 return "Debe usar mayusculas, minusculas y numeros";
                               } else if (!value.contains(RegExp(r'[0-9]'))) {
                                 return "Debe usar numeros";
+                              } else if (value.length < 6) {
+                                return "Mínimo 6 caracteres";
                               }
                             },
                           ),
@@ -240,7 +244,7 @@ class _SignupPageState extends State<SignupPage> {
                                       AlertDialog(
                                         title: const Text('Oh oh'),
                                         content: const Text(
-                                            'Su usuario no se ha guardado correctamente. Intente de nuevo'),
+                                            'Su usuario no se ha guardado correctamente. Puede que ya tenga el correo en uso. Intente de nuevo'),
                                         actions: [
                                           TextButton(
                                               onPressed: () =>
