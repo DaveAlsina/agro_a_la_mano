@@ -67,13 +67,32 @@ class FileController extends GetxController{
 
   }
 
+  Future uploadAndDeletePreviousFile() async{
+
+    if (_file == null) return false;
+
+    final fileName = _result!.files.single.name;
+    final destination = 'images/$fileName';
+
+    _taskSnapshot = await firebaseConn.uploadAndDeletePreviousFile(destination, _file!);
+
+    if(_taskSnapshot != null){
+      return true;
+    }else{
+      return false;
+    }
+
+  }
+
+
+
 
   //Actualiza la foto de perfil y actualiza la URL de la foto de perfil
   Future uploadProfilePic() async {
 
     try {
       await this.browseFiles();
-      await this.uploadFile();
+      await this.uploadAndDeletePreviousFile();
 
       profileImageUrl.value = await _taskSnapshot!.ref.getDownloadURL();
       refresh();

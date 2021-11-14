@@ -2,8 +2,6 @@ import 'package:agro_a_la_mano_dev/services/auth.dart';
 import 'package:agro_a_la_mano_dev/services/database.dart';
 import 'package:get/get.dart';
 
-//nuevo
-import 'package:agro_a_la_mano_dev/firebaseApi/firebase_api.dart';
 
 import 'files_controller.dart';
 
