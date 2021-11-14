@@ -1,5 +1,4 @@
 import 'package:agro_a_la_mano_dev/controllers/authentication_controller.dart';
-import 'package:agro_a_la_mano_dev/firebaseApi/firebase_api.dart';
 import 'package:agro_a_la_mano_dev/pages/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
