@@ -5,28 +5,34 @@ class DatabaseService {
   DatabaseService({required this.uid});
 
   //Collection reference
-  final CollectionReference agroCollection =
+  final CollectionReference users =
       FirebaseFirestore.instance.collection('users');
-
-  //ESTO NO SE ESTA USANDO PARA EL LOGIN!!! ASI SE METE INFO EN FIREBASE
-  //Update: este metodo creo que ya no hace falta
-  //:D
-  // Future saveUserData(String name, String email, String picture) async {
-  //   return await agroCollection.doc(uid).set({
-  //     'name': name,
-  //     "email": email,
-  //     "picture": picture,
-  //   });
-  // }
+  final CollectionReference questions =
+      FirebaseFirestore.instance.collection('questions');
 
   //============================PREGUNTAS Y RESPUESTAS==========================
-  Future saveQuestion(
+  Future saveQuestionFirebase(
       String pregunta, String detalles, String tema, String image) async {
-    return await agroCollection.doc(uid).set({
+    return await questions.doc().set({
+      'usuarioEnvia': uid,
       'question': pregunta,
       "details": detalles,
       "theme": tema,
       "picture": image,
+      'answer': {},
     });
+  }
+
+  Future saveAnswerFirebase(String idRef, String mensaje) async {
+    return await questions.doc(idRef).update({
+      'answer': {
+        'usuarioResponde': uid,
+        'respuesta': mensaje,
+      },
+    });
+  }
+
+  Future deleteDocumentFirebase(String idRef) async {
+    return await questions.doc(idRef).delete();
   }
 }

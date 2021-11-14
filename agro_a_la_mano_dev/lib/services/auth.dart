@@ -7,13 +7,15 @@ class AuthService {
 
   // user obj based on firebaseUser
   UserFirebase _userFromFirebase(
-      UserCredential user, String email, String name, String picture) {
-    return UserFirebase(
-        uid: user.user!.uid.toString(),
-        email: email,
-        name: name,
-        picture: picture);
+      String uid, String email, String name, String picture) {
+    return UserFirebase(uid: uid, email: email, name: name, picture: picture);
   }
+
+  //Get current user logged in
+  // get user {
+  //   return _auth.authStateChanges().map(
+  //       (User? user) => _userFromFirebase(user!.uid, '', '', '')); //Help D:
+  // }
 
   // Sign in with email and password
   Future<UserFirebase?> signUpEmailAndPass(
@@ -23,8 +25,8 @@ class AuthService {
           email: email, password: password);
 
       print('El usuario del login es ' + user.toString());
-      UserFirebase fireUser = _userFromFirebase(
-          user, email, user.additionalUserInfo!.username.toString(), '');
+      UserFirebase fireUser = _userFromFirebase(user.user!.uid.toString(),
+          email, user.additionalUserInfo!.username.toString(), '');
       return fireUser;
     } catch (e) {
       print(e.toString());
@@ -41,7 +43,7 @@ class AuthService {
       var myUser = _auth.currentUser;
       await myUser!.updateDisplayName(name);
       print("This is the current user: " + myUser.toString());
-      return _userFromFirebase(user, email, name, '');
+      return _userFromFirebase(user.user!.uid.toString(), email, name, '');
     } catch (e) {
       print(e.toString());
       return null;

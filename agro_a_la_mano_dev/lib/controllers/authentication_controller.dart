@@ -6,10 +6,12 @@ class AuthenticationController extends GetxController {
   // LocalPreferences lp = LocalPreferences();
   AuthService _auth = AuthService();
   var _logged = false.obs;
+  var _uidLogged = ''.obs;
 
   // DatabaseService _database = DatabaseService(uid: _uid.value);
 
   bool get logged => _logged.value;
+  String get uidLogged => _uidLogged.value;
 
   void setLogged(bool l) {
     _logged.value = l;
@@ -31,6 +33,7 @@ class AuthenticationController extends GetxController {
       setLogged(false);
       return false;
     } else {
+      _uidLogged.value = response.uid;
       setLogged(true);
       print(response);
       return true;
@@ -51,6 +54,7 @@ class AuthenticationController extends GetxController {
     dynamic response = await _auth.signOut();
     print(response);
     setLogged(false);
+    _uidLogged.value = '';
     return true;
   }
 

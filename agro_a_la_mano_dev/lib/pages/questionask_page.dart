@@ -149,7 +149,71 @@ class _QuestionPageState extends State<QuestionPage> {
                           final form = _formKey.currentState;
                           form!.save();
                           if (form.validate()) {
-                            bool value = true;
+                            if (_questionController.text == "") {
+                              //Display a message
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: const Text('No hay pregunta'),
+                                        content: const Text(
+                                            'Por favor ingrese una pregunta.'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text('Ok',
+                                                  style: TextStyle(
+                                                      color: colorCons
+                                                          .GREEN_BUTTON_COLOR)))
+                                        ],
+                                      ));
+                            } else {
+                              bool respuesta =
+                                  await histController.saveQuestion(
+                                      _questionController.text,
+                                      _detailsController.text,
+                                      _themeController.text,
+                                      '');
+                              if (respuesta) {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: const Text('Guardado!'),
+                                          content: const Text(
+                                              'Se pregunta se ha guardado correctamente'),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: Text('Ok',
+                                                    style: TextStyle(
+                                                        color: colorCons
+                                                            .GREEN_BUTTON_COLOR)))
+                                          ],
+                                        ));
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: const Text('Oh oh'),
+                                          content: const Text(
+                                              'No se ha podido guardar su pregunta. Intente más tarde.'),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: Text('Ok',
+                                                    style: TextStyle(
+                                                        color: colorCons
+                                                            .GREEN_BUTTON_COLOR)))
+                                          ],
+                                        ));
+                              }
+                            }
+                            // bool value = true;
                             if (_questionController.text == "")
                               return;
                             else if (_detailsController.text == "") return;
@@ -161,7 +225,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                 answerer: "");
                             histController.addHistoryRegister(registro);
                           } else {
-                            bool value = false;
+                            // bool value = false;
                           }
                         },
                         style: ElevatedButton.styleFrom(
