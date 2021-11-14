@@ -8,9 +8,13 @@ class DatabaseService {
   final String uid;
   DatabaseService({required this.uid});
 
-  //Collection reference
+  //Collection reference de usuarios
   final CollectionReference agroCollection =
       FirebaseFirestore.instance.collection('users');
+
+  //Collection reference de mensajes de usuarios
+  final CollectionReference agroMessagesCollection =
+  FirebaseFirestore.instance.collection('questions');
 
 
 
@@ -64,7 +68,7 @@ class DatabaseService {
 
   }
 
-  //
+  // Metodo para cargar la imagen de perfil al inciar sesión
   Future loadProfileImageOnStartup() async{
 
     final DocumentSnapshot<Object?> response = await agroCollection.doc(uid).get();
@@ -74,6 +78,25 @@ class DatabaseService {
     return url;
  }
 
+
+ // Método para cargar imagen de algún mensaje
+  Future<String> getImageFromMessage(String messageId) async{
+
+    final DocumentSnapshot<Object?> response = await agroMessagesCollection.doc(messageId).get();
+    String picName = response.get("picture");
+
+    if (  picName == '' ){
+      //si no hay imagen retorna un string en blanco
+      return '';
+    }
+
+    Reference ref = fireStorage.ref().child(picName);
+    String url = await ref.getDownloadURL();
+
+    // si hay url de la imagen la manda
+    return url;
+
+  }
 
 
 
