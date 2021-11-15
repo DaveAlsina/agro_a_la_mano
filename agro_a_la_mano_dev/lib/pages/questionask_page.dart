@@ -132,7 +132,7 @@ class _QuestionPageState extends State<QuestionPage> {
                             tooltip: 'Incluir imagen (opcional)',
                             onPressed: () async{
 
-                              bool response1  = await _fileController.browseFiles();
+                              bool response1  = await _fileController.browseFilesForMessageImage();
 
                               if(response1){
                                 Get.snackbar('Imagen Añadida',
@@ -187,7 +187,8 @@ class _QuestionPageState extends State<QuestionPage> {
                                   _questionController.text,
                                   _detailsController.text,
                                   _themeController.text,
-                                  _fileController.imagePath);
+                                  _fileController.messageImagePath);
+
                               if (respuesta) {
                                 showDialog(
                                     context: context,
@@ -206,6 +207,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                                             .GREEN_BUTTON_COLOR)))
                                           ],
                                         ));
+
                               } else {
                                 showDialog(
                                     context: context,

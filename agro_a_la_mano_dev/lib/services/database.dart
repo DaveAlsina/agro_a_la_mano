@@ -19,9 +19,6 @@ class DatabaseService {
 
   //============================PREGUNTAS Y RESPUESTAS==========================
 
-
-
-
   Future saveQuestionFirebase(
       String pregunta, String detalles, String tema, String image) async {
     return await questions.doc().set({
@@ -83,22 +80,35 @@ class DatabaseService {
    * **********************************/
 
   //variables para subir imagenes
-  UploadTask? imageTask;    //para monitorear la tarea de subir imagen
+  UploadTask? imageTask;                                  //para monitorear la tarea de subir imagen
   FirebaseStorage fireStorage = FirebaseStorage.instance; //instancia de firestorage para hacer peticiones
 
   // método para subir imagenes a firestore
-  Future uploadFile (String destination, File file)async{
+  Future uploadFile (String destination, File file, String messageId)async{
 
     try{
 
       Reference ref = fireStorage.ref(destination);
       imageTask = ref.putFile(file);
 
-      users.doc(uid).update({"picture" : destination});
+      // si no hay id de mensaje quiere decir que es una foto
+      // de perfil la que se va a subir, de lo contrario
+      // se asume que es un mensaje
+      if (messageId == ''){
+        users.doc(uid).update({"picture" : destination});
+      }else{
+        questions.doc(messageId).update({"picture" : destination});
+      }
 
       return imageTask;
 
     }on FirebaseException catch (e){
+
+      if(messageId == ''){
+        log("En el evento de subir una foto de mensaje: ");
+      } else {
+        log("En el evento de subir una foto de perfil: ");
+      }
 
       log("Hubo un error al subir la imagen a firebase: " + e.toString());
       return null;
@@ -108,7 +118,8 @@ class DatabaseService {
 
 
   //este método es para borrar fotos de perfil que van a ser reemplazadas por otras
-  Future uploadAndDeletePreviousFile(String destination, File file) async{
+
+  Future updatePreviousProfilePic(String destination, File file) async{
 
     try{
 
@@ -175,18 +186,6 @@ class DatabaseService {
     return url;
 
   }
-
-
-  // quiero un método que me diga cual es la foto acutal de perfil
-  // después que me diga cual es el nombre que la borre y que
-  // ahí si añada esa nueva foto de perfil (no queremos guardar datos personales
-  // de la gente, ni sobrepopular la base)
-
-
-
-
-
-
 
 
 

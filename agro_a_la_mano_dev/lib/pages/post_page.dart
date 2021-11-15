@@ -1,4 +1,6 @@
 //import 'package:ensayos/domain/controllers/authentication_controller.dart';
+import 'package:agro_a_la_mano_dev/controllers/files_controller.dart';
+import 'package:agro_a_la_mano_dev/controllers/messages_controller.dart';
 import 'package:flutter/material.dart';
 //import 'package:get/get.dart';
 import 'package:agro_a_la_mano_dev/pages/comentarios_page.dart';
@@ -8,8 +10,14 @@ Color verde = Colors.green[400]!;
 Color gris = Colors.grey[350]!;
 
 class Post extends StatelessWidget {
-  final String _postContent =
-      "Aquí va el contenido del post. Definir si hay un titular del Post o si todo va en un mismo body.";
+  HistoryController questionController = Get.find();
+  FileController imageController = Get.find();
+  late String _postContent;
+
+  Post(){
+      _postContent = questionController.currentQuestionInfo.details;
+      imageController.loadMessageImageOnRequest(questionController.currentQuestionInfo.id);
+  }
 
 
   @override
@@ -52,7 +60,7 @@ class Post extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.all(10),
                   child: Text(
-                    "¿Cómo cultivar lechuga?",
+                    questionController.currentQuestionInfo.question,
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -64,7 +72,15 @@ class Post extends StatelessWidget {
                 Container(
                   padding:
                       const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                  child: Image(image: AssetImage("img/lechuga.jpg")),
+                  child: Obx(() => imageController.messageImageUrl.value.isEmpty?
+                                    Image.asset("img/lechuga.jpg"):
+                                    Image.network(
+                                        imageController.messageImageUrl.value,
+                                        fit: BoxFit.cover,
+                                        width: 300,
+                                        height: 300,
+                                    )
+                            ),
                 ),
                 SizedBox(
                   height: 30,

@@ -14,29 +14,34 @@ class HistoryController extends GetxController {
   AuthenticationController _authController = Get.find();
   LocalPreferences prefs = LocalPreferences();
 
+  var currentQuestionIdx = [-1].obs;
   var _rows = <dynamic>[].obs;
   var _questionsByUser = [].obs;
 
 
   List<dynamic> get rows => _rows.value;
+  QuestionModel get currentQuestionInfo => this._rows[this.currentQuestionIdx[0]];
 
 
   //==========================================================================
   //Functionality using firebase
   Future<bool> saveQuestion(
-      String pregunta, String detalles, String tema, String picture) async {
+
+    String pregunta, String detalles, String tema, String picture) async {
     String uid = _authController.uid;
+
     dynamic response = DatabaseService(uid: uid)
-        .saveQuestionFirebase(pregunta, detalles, tema, picture);
+      .saveQuestionFirebase(pregunta, detalles, tema, picture);
 
     //Get all answers to display
     _rows.value = await DatabaseService(uid: uid).getDataQuestions();
+
     if (response == null) {
-      log('No se pudo guardar la pregunta');
-      return false;
+        log('No se pudo guardar la pregunta');
+        return false;
     } else {
-      log('pregunta guardada correctamente');
-      return true;
+        log('pregunta guardada correctamente');
+        return true;
     }
   }
 
@@ -46,6 +51,13 @@ class HistoryController extends GetxController {
     await DatabaseService(uid: uid).deleteDocumentFirebase(messageId);
     return true;
   }
+
+
+  void changeCurrentQuestionIdx(int idx){
+    currentQuestionIdx[0] = idx;
+    refresh();
+  }
+
 
 /*
 

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -65,6 +67,9 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
       }
     });
   }
+
+
+
 
 
   SingleChildScrollView dataBody() {
@@ -163,6 +168,8 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
                                               icon: Icon(Icons.report_gmailerrorred_sharp),
                                               tooltip: 'Conocer mas acerca de...',
                                               onPressed: () {
+                                                int idx = filas.indexOf(fila);
+                                                histController.changeCurrentQuestionIdx(idx);
                                                 Get.toNamed('/PostPage');
                                               },
                                             ),
