@@ -3,10 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String get uid => _auth.currentUser!.uid.toString();
 
   // user obj based on firebaseUser
   UserFirebase _userFromFirebase(UserCredential user) {
-    return UserFirebase(uid: user.credential.toString());
+    return UserFirebase(uid: _auth.currentUser!.uid.toString() );
   }
 
   // Sign in with email and password

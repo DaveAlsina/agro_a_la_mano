@@ -1,3 +1,4 @@
+import 'package:agro_a_la_mano_dev/controllers/files_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,6 +31,8 @@ class _QuestionPageState extends State<QuestionPage> {
   final _questionController = TextEditingController();
   final _themeController = TextEditingController();
   HistoryController histController = Get.find<HistoryController>();
+
+  FileController _fileController = Get.find();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,8 +125,19 @@ class _QuestionPageState extends State<QuestionPage> {
                           IconButton(
                             icon: Icon(Icons.add_a_photo_outlined),
                             tooltip: 'Incluir imagen (opcional)',
-                            onPressed: () {
-                              setState(() {});
+                            onPressed: () async{
+
+                              bool response1  = await _fileController.browseFiles();
+
+                              if(response1){
+                                Get.snackbar('Imagen Añadida',
+                                  'La imagen de tu mensaje ha sido añadida',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: colorCons.LIGHT_GREEN_BUTTON_COLOR,
+                                );
+
+                              }
+
                             },
                           ),
                           Text(
