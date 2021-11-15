@@ -79,4 +79,24 @@ class AuthenticationController extends GetxController {
     setLogged(false);
     return true;
   }
+
+  // Update Credentials
+
+  Future updateUserCredentials() async{
+    //_fireStoreDatabase.
+  }
+
+  // Obtiene info de usuario
+
+  Future<List<String>> getUserInfo()async{
+    return await _fireStoreDatabase.getUserData();
+  }
+
+  // Cambia contraseña de usuario
+
+  Future<List> changeUserPassword(String newPassword) async {
+    return await _auth.changePassword(newPassword);
+  }
+
+
 }

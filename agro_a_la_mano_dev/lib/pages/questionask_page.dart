@@ -187,7 +187,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                   _questionController.text,
                                   _detailsController.text,
                                   _themeController.text,
-                                  '');
+                                  _fileController.imagePath);
                               if (respuesta) {
                                 showDialog(
                                     context: context,
@@ -227,6 +227,8 @@ class _QuestionPageState extends State<QuestionPage> {
                               }
                             }
 
+
+                            /*
                             //parte de esteban
                             bool value = true;
                             if (_questionController.text == "")
@@ -239,9 +241,13 @@ class _QuestionPageState extends State<QuestionPage> {
                                 answer: "",
                                 answerer: "");
                             histController.addHistoryRegister(registro);
-                          } else {
+                            */
+                          }
+
+                          else {
                             bool value = false;
                           }
+
                         },
                         style: ElevatedButton.styleFrom(
                           primary: colorCons.GREEN_BUTTON_COLOR,

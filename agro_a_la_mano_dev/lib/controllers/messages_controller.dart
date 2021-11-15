@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:agro_a_la_mano_dev/data/repositories/models/question_model.dart';
 import 'package:agro_a_la_mano_dev/services/database.dart';
 import 'package:get/get.dart';
 import 'package:agro_a_la_mano_dev/data/local_preferences.dart';
@@ -13,11 +14,40 @@ class HistoryController extends GetxController {
   AuthenticationController _authController = Get.find();
   LocalPreferences prefs = LocalPreferences();
 
-
-  var _rows = <RowLoc>[].obs;
+  var _rows = <dynamic>[].obs;
   var _questionsByUser = [].obs;
 
-  List<RowLoc> get rows => _rows.value;
+
+  List<dynamic> get rows => _rows.value;
+
+
+  //==========================================================================
+  //Functionality using firebase
+  Future<bool> saveQuestion(
+      String pregunta, String detalles, String tema, String picture) async {
+    String uid = _authController.uid;
+    dynamic response = DatabaseService(uid: uid)
+        .saveQuestionFirebase(pregunta, detalles, tema, picture);
+
+    //Get all answers to display
+    _rows.value = await DatabaseService(uid: uid).getDataQuestions();
+    if (response == null) {
+      log('No se pudo guardar la pregunta');
+      return false;
+    } else {
+      log('pregunta guardada correctamente');
+      return true;
+    }
+  }
+
+  Future<bool> deleteQuestion(String messageId) async {
+    String uid = _authController.uid;
+    print('Id de la pregunta a borrar' + messageId.toString());
+    await DatabaseService(uid: uid).deleteDocumentFirebase(messageId);
+    return true;
+  }
+
+/*
 
   Future<void> addHistoryRegister(RowLoc new_register) async {
     _rows.value = await prefs.retrieveData<List<RowLoc>>("rows") ?? _rows.value;
@@ -36,36 +66,11 @@ class HistoryController extends GetxController {
         new_rows.add(register);
     }
 
-    await prefs.storeData<List<RowLoc>>("rows", new_rows);   
+    await prefs.storeData<List<RowLoc>>("rows", new_rows);
     _rows.value = new_rows;
     deleteQuestion(index);
   }
 
-  //==========================================================================
-  //Functionality using firebase
-  Future<bool> saveQuestion(
-      String pregunta, String detalles, String tema, String picture) async {
-    String uid = _authController.uid;
-    dynamic response = DatabaseService(uid: uid)
-        .saveQuestionFirebase(pregunta, detalles, tema, picture);
 
-    //Get all answers to display
-    _questionsByUser.value = await DatabaseService(uid: uid).getDataQuestions();
-    if (response == null) {
-      log('No se pudo guardar la pregunta');
-      return false;
-    } else {
-      log('pregunta guardada correctamente');
-      return true;
-    }
-  }
-
-  Future<bool> deleteQuestion(int index) async {
-    String uid = _authController.uid;
-    String idRef = _questionsByUser[index].id;
-    print('Id de la pregunta a borrar' + idRef.toString());
-    await DatabaseService(uid: uid).deleteDocumentFirebase(idRef);
-    return true;
-  }
-
+*/
 }

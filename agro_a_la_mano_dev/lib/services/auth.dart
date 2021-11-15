@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:agro_a_la_mano_dev/data/repositories/models/userModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -54,5 +57,22 @@ class AuthService {
       return null;
     }
   }
+
+
+  Future changePassword(String newPassword)async{
+    try{
+      var myUser = _auth.currentUser;
+      await myUser!.updatePassword(newPassword);
+      return true;
+    }catch(e){
+      log("Hubo un error al momento de actualizar contraseña de usuario: " + e.toString());
+      return false;
+    }
+  }
+
+
+
+
+
 }
 

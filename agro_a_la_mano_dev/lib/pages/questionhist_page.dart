@@ -28,8 +28,8 @@ class QuestionHistoryPage extends StatefulWidget {
 
 class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
   bool sort = false;
-  List<RowLoc> filas = [];
-  List<RowLoc> filasSeleccionadas = [];
+  List<dynamic> filas = [];
+  List<dynamic> filasSeleccionadas = [];
 
   HistoryController histController = Get.find<HistoryController>();
 
@@ -41,7 +41,7 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
     super.initState();
   }
 
-  onSelectedRow(bool? selected, RowLoc fila) async {
+  onSelectedRow(bool? selected, dynamic fila) async {
     setState(() {
       if (selected!) {
         filasSeleccionadas.add(fila);
@@ -52,11 +52,13 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
   }
 
   deleteSelected() async {
+
     setState(() {
       if (filasSeleccionadas.isNotEmpty) {
-        List<RowLoc> temp = [];
+        List<dynamic> temp = [];
         temp.addAll(filasSeleccionadas);
-        for (RowLoc fila in temp) {
+        for (dynamic fila in temp) {
+          histController.deleteQuestion(fila.id);
           filas.remove(fila);
           filasSeleccionadas.remove(fila);
         }
@@ -92,7 +94,7 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
                     (fila) => DataRow(
                         selected: filasSeleccionadas.contains(fila),
                         onSelectChanged: (b) {
-                          String? fila_id = fila.id;
+                          String? fila_id = fila.question;
                           print("Onselect $fila_id: $b");
                           onSelectedRow(b, fila);
                         },
@@ -116,7 +118,7 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
                                               borderRadius: BorderRadius.circular(15.0),
                                           ),
                                           child: Text(
-                                              "Pregunta: ${fila.id}",
+                                              "Pregunta: ${fila.question}",
                                               style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 15),
                                           ),
                                       ),
@@ -147,9 +149,9 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
                                               borderRadius: BorderRadius.circular(15.0),
                                             )),
                                         controller:
-                                            TextEditingController(text: fila.question),
+                                            TextEditingController(text: fila.details),
                                         onChanged: (text) {
-                                          fila.question = text;
+                                          fila.details = text;
                                         },
                                       ),
 
@@ -161,10 +163,9 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
                                               icon: Icon(Icons.report_gmailerrorred_sharp),
                                               tooltip: 'Conocer mas acerca de...',
                                               onPressed: () {
-                                                Get.toNamed('/QuestionHistoryPage/CommentPage');
+                                                Get.toNamed('/PostPage');
                                               },
                                             ),
-                                            DeleteCommentButton(),
                                         ],
                                       )
 
@@ -214,7 +215,9 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
                 padding: EdgeInsets.all(20.0),
                 child: OutlineButton(
                   child: Text('SELECTED ${filasSeleccionadas.length}'),
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                 ),
               ),
               Padding(

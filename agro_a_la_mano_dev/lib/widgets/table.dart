@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:agro_a_la_mano_dev/controllers/messages_controller.dart';
 
+/*
 class Tabla extends StatefulWidget {
   const Tabla({Key? key}) : super(key: key);
 
@@ -14,8 +15,8 @@ class Tabla extends StatefulWidget {
 
 class _TablaState extends State<Tabla> {
   bool sort = false;
-  List<RowLoc> filas = [];
-  List<RowLoc> filasSeleccionadas = [];
+  List<dynamic> filas = [];
+  List<dynamic> filasSeleccionadas = [];
 
   HistoryController histController = Get.find<HistoryController>();
 
@@ -40,9 +41,9 @@ class _TablaState extends State<Tabla> {
   deleteSelected() async {
     setState(() {
       if (filasSeleccionadas.isNotEmpty) {
-        List<RowLoc> temp = [];
+        List<dynamic> temp = [];
         temp.addAll(filasSeleccionadas);
-        for (RowLoc fila in temp) {
+        for (dynamic fila in temp) {
           filas.remove(fila);
           filasSeleccionadas.remove(fila);
         }
@@ -113,4 +114,7 @@ class _TablaState extends State<Tabla> {
       ),
     );
   }
+
 }
+
+ */

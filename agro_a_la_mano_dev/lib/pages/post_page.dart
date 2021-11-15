@@ -10,6 +10,8 @@ Color gris = Colors.grey[350]!;
 class Post extends StatelessWidget {
   final String _postContent =
       "Aquí va el contenido del post. Definir si hay un titular del Post o si todo va en un mismo body.";
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +27,9 @@ class Post extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.back();
+                        },
                         icon: Icon(
                           Icons.arrow_back,
                           color: Colors.white,

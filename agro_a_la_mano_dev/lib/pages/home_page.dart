@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
     Widget build(BuildContext context) {
         NotificationsController notificationsController = Get.find();
         return Scaffold(
+            backgroundColor: colorCons.BACKGROUND_COLOR,
             appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(79.0),
                 child: Container(

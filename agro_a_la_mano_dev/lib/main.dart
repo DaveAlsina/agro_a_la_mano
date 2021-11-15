@@ -3,6 +3,7 @@ import 'package:agro_a_la_mano_dev/controllers/files_controller.dart';
 import 'package:agro_a_la_mano_dev/pages/comentarios_page.dart';
 import 'package:agro_a_la_mano_dev/pages/home_page.dart';
 import 'package:agro_a_la_mano_dev/pages/login_page.dart';
+import 'package:agro_a_la_mano_dev/pages/post_page.dart';
 import 'package:agro_a_la_mano_dev/pages/questionhist_page.dart';
 import 'package:agro_a_la_mano_dev/pages/profile_page.dart';
 import 'package:agro_a_la_mano_dev/pages/questionask_page.dart';
@@ -29,8 +30,13 @@ void main() async {
   await Get.put(NotificationsController());
 
   runApp(GetMaterialApp(
-    home: Obx(() => auth.logged? MaterialApp(home:  QuestionPage()) : LoginPage()),
+    home: Obx(() => auth.logged? MaterialApp(home: HomePage()) : LoginPage()),
     getPages: [
+      GetPage(
+        name: '/Home',
+        page: () => HomePage(),
+        transition: Transition.leftToRight,
+      ),
       GetPage(
         name: '/QuestionPage',
         page: () => QuestionPage(),
@@ -46,6 +52,11 @@ void main() async {
               page: () => ComentariosPage(),
             )
           ]),
+      GetPage(
+        name: '/PostPage',
+        page: () => Post(),
+        transition: Transition.leftToRight,
+      ),
       GetPage(
         name: '/ProfilePage',
         page: () => ProfilePage(),

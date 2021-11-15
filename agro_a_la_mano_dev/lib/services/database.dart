@@ -48,8 +48,10 @@ class DatabaseService {
   }
 
   Future<List> getDataQuestions() async {
-    Query query = questions..where('usuarioEnvia', isEqualTo: uid);
-    QuerySnapshot querySnapshot = await query.get();
+    Query query = questions.where('usuarioEnvia', isEqualTo: uid);
+    QuerySnapshot querySnapshot = await query.get().whenComplete(() => null).catchError((e) =>
+        log("Error al pedir los mensajes particulares del usuario: " + e.toString()));
+
     final allData = querySnapshot.docs;
 
     List finalList = [];
@@ -64,6 +66,17 @@ class DatabaseService {
     }
     return finalList;
   }
+
+  /* *******************************
+      Obtener información del usuario
+  * **********************************/
+
+  Future<List<String>> getUserData() async{
+    final DocumentSnapshot<Object?> response = await users.doc(uid).get();
+    return <String>[response.get("name"), response.get("email")];
+  }
+
+  //Future<bool> updateUser
 
   /* **********************************
   Métodos para manejar imágenes  en Firestorage
@@ -125,17 +138,22 @@ class DatabaseService {
   // Metodo para cargar la imagen de perfil al inciar sesión
   Future loadProfileImageOnStartup() async{
 
-    // obtiene toda la información del documento con id: "uid" de la colección "users"
-    final DocumentSnapshot<Object?> response = await users.doc(uid).get();
+    try{
+      // obtiene toda la información del documento con id: "uid" de la colección "users"
+      final DocumentSnapshot<Object?> response = await users.doc(uid).get();
 
-    // obtiene una referencia a la imagen guardada en fireStorage con el nombre
-    // del campo picture de la respuesta obtenida anteriormente
-    Reference ref = fireStorage.ref().child(response.get("picture"));
+      // obtiene una referencia a la imagen guardada en fireStorage con el nombre
+      // del campo picture de la respuesta obtenida anteriormente
+      Reference ref = fireStorage.ref().child(response.get("picture"));
 
-    // obtiene la url de referencia a esa imagen guardada
-    String url = await ref.getDownloadURL();
+      // obtiene la url de referencia a esa imagen guardada
+      String url = await ref.getDownloadURL();
 
-    return url;
+      return url;
+    }catch (e){
+      log("Al momento de cargar la imagen en inicio de la app sucedió: " + e.toString());
+    }
+
  }
 
 

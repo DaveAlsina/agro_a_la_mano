@@ -23,6 +23,9 @@ class FileController extends GetxController{
 
   late DatabaseService firebaseConn; //conexión con la base de datos de firebase
 
+
+  get imagePath => _result.isNull? '' : 'images/' + _result!.files.single.name;
+
   FileController(){
     firebaseConn =  DatabaseService(uid: _authcontroller.uid); //conexión con la api para enviar archivos a firestore
     loadProfileImageOnStartup();
@@ -38,6 +41,7 @@ class FileController extends GetxController{
         type: FileType.custom,
         allowedExtensions: ['jpg', 'png'],
     );
+
 
     if (_result != null){
        _file = File(_result!.files.single.path!);
