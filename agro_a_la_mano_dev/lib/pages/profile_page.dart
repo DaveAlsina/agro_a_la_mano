@@ -124,7 +124,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         flex: 5,
                         child: Container(
                           child: TextField(
-                            obscureText: true,
                             controller: _nameController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
@@ -140,7 +139,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       SizedBox(
                         width: 40,
                       ),
-                    ]),
+                    ]
+                ),
 
                 SizedBox(
                   height: 10,
@@ -181,6 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
+
                       SizedBox(
                         width: 40,
                       ),
