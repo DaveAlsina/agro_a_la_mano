@@ -175,14 +175,14 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(20.0),
-                child: OutlineButton(
+                child: OutlinedButton(
                   child: Text('SELECTED ${filasSeleccionadas.length}'),
                   onPressed: () {},
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(20.0),
-                child: OutlineButton(
+                child: OutlinedButton(
                   child: Text('DELETE SELECTED'),
                   onPressed: filasSeleccionadas.isEmpty
                       ? null

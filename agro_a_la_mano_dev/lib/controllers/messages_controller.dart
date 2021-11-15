@@ -26,7 +26,10 @@ class HistoryController extends GetxController {
   //Llamo al controlador
   AuthenticationController _authController = Get.find();
   LocalPreferences prefs = LocalPreferences();
+
+  //Variables observables
   var _rows = <RowLoc>[].obs;
+  var _questionsByUser = [].obs;
 
   List<RowLoc> get rows => _rows.value;
 
@@ -50,6 +53,7 @@ class HistoryController extends GetxController {
     _rows.value = new_rows;
   }
 
+  //==========================================================================
   //Functionality using firebase
   Future<bool> saveQuestion(
       String pregunta, String detalles, String tema, String picture) async {
@@ -57,6 +61,8 @@ class HistoryController extends GetxController {
     dynamic response = DatabaseService(uid: uid)
         .saveQuestionFirebase(pregunta, detalles, tema, picture);
 
+    //Get all answers to display
+    _questionsByUser.value = await DatabaseService(uid: uid).getDataQuestions();
     if (response == null) {
       log('No se pudo guardar la pregunta');
       return false;
