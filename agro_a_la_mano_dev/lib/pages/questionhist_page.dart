@@ -1,9 +1,3 @@
-//import 'package:agro_a_la_mano_dev/domain/controllers/authentication_controller.dart';
-//import 'package:agro_a_la_mano_dev/ui/pages/authentication/signup_page.dart';
-import 'package:agro_a_la_mano_dev/controllers/messages_controller.dart';
-import 'package:agro_a_la_mano_dev/pages/comentarios_page.dart';
-import 'package:agro_a_la_mano_dev/pages/post_page.dart';
-import 'package:agro_a_la_mano_dev/widgets/deletePostButton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +11,11 @@ import 'package:agro_a_la_mano_dev/assets/icons.dart' as Icons_constants;
 //Botton Navigation Bar y Navigation Bar personalizados
 import 'package:agro_a_la_mano_dev/widgets/customBottomNavBar.dart';
 import 'package:agro_a_la_mano_dev/widgets/customAppBar.dart';
+
+
+import 'package:agro_a_la_mano_dev/controllers/messages_controller.dart';
+import 'package:agro_a_la_mano_dev/data/repositories/models/row_loc_model.dart';
+import 'package:agro_a_la_mano_dev/widgets/deletePostButton.dart';
 
 class QuestionHistoryPage extends StatefulWidget {
   const QuestionHistoryPage({Key? key}) : super(key: key);
@@ -42,7 +41,6 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
     super.initState();
   }
 
-  @override
   onSelectedRow(bool? selected, RowLoc fila) async {
     setState(() {
       if (selected!) {
@@ -53,7 +51,6 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
     });
   }
 
-  @override
   deleteSelected() async {
     setState(() {
       if (filasSeleccionadas.isNotEmpty) {
@@ -67,7 +64,7 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
     });
   }
 
-  @override
+
   SingleChildScrollView dataBody() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,

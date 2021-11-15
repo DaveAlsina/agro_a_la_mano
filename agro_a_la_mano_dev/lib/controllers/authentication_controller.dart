@@ -32,28 +32,6 @@ class AuthenticationController extends GetxController {
     setLogged(false);
   }
 
-  // Future<bool> registerUser(String name, String email, String pass) async {
-  //   // await lp.storeData<String>("name", name);
-  //   // await lp.storeData<String>("password", pass);
-  //   // await lp.storeData<String>("email", email);
-
-  //   await DatabaseService(uid: email).updateUserData(name, email, pass, '');
-  //   return Future.value(true);
-  // }
-
-  // Future<bool> login(email, password) async {
-  // String emailT = await lp.retrieveData<String>("email") ?? "";
-  // String passwordT = await lp.retrieveData<String>("password") ?? "";
-
-  // if (emailT == email && passwordT == password) {
-  // await lp.storeData<bool>("logged", true);
-  // setLogged(true);
-  // } else {
-  // await lp.storeData<bool>("logged", false);
-  // setLogged(false);
-  // }
-  // return Future.value(_logged.value);
-  // }
   Future<bool> login(email, password) async {
     dynamic response = await _auth.signUpEmailAndPass(email, password);
 
@@ -63,8 +41,6 @@ class AuthenticationController extends GetxController {
 
     } else {
 
-
-      _fireStoreDatabase = DatabaseService(uid: response.uid!);
       setLogged(true);
 
       // en el momento en que se logea o hace signup
@@ -76,14 +52,11 @@ class AuthenticationController extends GetxController {
   }
 
   Future<bool> signup(name, email, password) async {
-    dynamic response = await _auth.registerEmailAndPass(email, password);
+    dynamic response = await _auth.registerEmailAndPass(email, password, name);
 
     if (response == null) {
       return false;
     } else {
-
-      _fireStoreDatabase = DatabaseService(uid: response.uid!);
-      _fireStoreDatabase.updateUserData(name, email, '');
 
       // en el momento en que se logea o hace signup
       // se habilita el controlador de archivos

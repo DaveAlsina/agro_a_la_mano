@@ -1,3 +1,4 @@
+import 'package:agro_a_la_mano_dev/data/repositories/models/row_loc_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:agro_a_la_mano_dev/controllers/messages_controller.dart';

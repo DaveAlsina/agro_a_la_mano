@@ -1,4 +1,5 @@
 import 'package:agro_a_la_mano_dev/controllers/files_controller.dart';
+import 'package:agro_a_la_mano_dev/data/repositories/models/row_loc_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -36,6 +37,9 @@ class _QuestionPageState extends State<QuestionPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: colorCons.BACKGROUND_COLOR,
+      resizeToAvoidBottomInset: false,
+
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(79.0),
         child: Container(
@@ -61,7 +65,7 @@ class _QuestionPageState extends State<QuestionPage> {
                       height: 19,
                     ),
                     ConstrainedBox(
-                      constraints: BoxConstraints.tight(const Size(199, 50)),
+                      constraints: BoxConstraints.tight(const Size(320, 60)),
                       child: TextFormField(
                         key: Key('Pregunta'),
                         controller: _questionController,
@@ -80,13 +84,14 @@ class _QuestionPageState extends State<QuestionPage> {
                       height: 19,
                     ),
                     ConstrainedBox(
-                      constraints: BoxConstraints.tight(const Size(199, 50)),
+                      constraints: BoxConstraints.tight(const Size(320, 60)),
                       child: TextFormField(
                         key: Key('Detalles'),
                         controller: _detailsController,
                         decoration: InputDecoration(
                             labelText: 'Detalles',
                             //suffixIcon: Icon(Icons.search),
+                            //floatingLabelStyle: TextStyle(color: colorCons.GREEN_BUTTON_COLOR),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: colorCons.GREEN_BUTTON_COLOR,
@@ -99,7 +104,7 @@ class _QuestionPageState extends State<QuestionPage> {
                       height: 19,
                     ),
                     ConstrainedBox(
-                      constraints: BoxConstraints.tight(const Size(199, 50)),
+                      constraints: BoxConstraints.tight(const Size(320, 60)),
                       child: TextFormField(
                         key: Key('Tema'),
                         controller: _themeController,
@@ -155,6 +160,74 @@ class _QuestionPageState extends State<QuestionPage> {
                           final form = _formKey.currentState;
                           form!.save();
                           if (form.validate()) {
+
+                            //parte de estefanía
+                            if (_questionController.text == "") {
+                              //Display a message
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: const Text('No hay pregunta'),
+                                        content: const Text(
+                                            'Por favor ingrese una pregunta.'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text('Ok',
+                                                  style: TextStyle(
+                                                      color: colorCons
+                                                          .GREEN_BUTTON_COLOR)))
+                                        ],
+                                      ));
+                            } else {
+                              bool respuesta =
+                              await histController.saveQuestion(
+                                  _questionController.text,
+                                  _detailsController.text,
+                                  _themeController.text,
+                                  '');
+                              if (respuesta) {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: const Text('Guardado!'),
+                                          content: const Text(
+                                              'Se pregunta se ha guardado correctamente'),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: Text('Ok',
+                                                    style: TextStyle(
+                                                        color: colorCons
+                                                            .GREEN_BUTTON_COLOR)))
+                                          ],
+                                        ));
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: const Text('Oh oh'),
+                                          content: const Text(
+                                              'No se ha podido guardar su pregunta. Intente más tarde.'),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: Text('Ok',
+                                                    style: TextStyle(
+                                                        color: colorCons
+                                                            .GREEN_BUTTON_COLOR)))
+                                          ],
+                                        ));
+                              }
+                            }
+
+                            //parte de esteban
                             bool value = true;
                             if (_questionController.text == "")
                               return;
@@ -171,7 +244,7 @@ class _QuestionPageState extends State<QuestionPage> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
+                          primary: colorCons.GREEN_BUTTON_COLOR,
                           onPrimary: Colors.white,
                         ),
                         child: Text("Preguntar")),

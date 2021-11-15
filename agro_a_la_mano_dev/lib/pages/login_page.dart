@@ -34,8 +34,8 @@ class _LoginPageState extends State<LoginPage> {
           body: Form(
             key: _formKey,
             child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-                    Widget>[
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+                Widget>[
               Flexible(
                 fit: FlexFit.tight,
                 flex: 2,

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:agro_a_la_mano_dev/data/repositories/models/question_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -8,37 +9,61 @@ class DatabaseService {
   final String uid;
   DatabaseService({required this.uid});
 
-  //Collection reference de usuarios
-  final CollectionReference agroCollection =
-      FirebaseFirestore.instance.collection('users');
+  //Collection reference
+  final CollectionReference users =
+  FirebaseFirestore.instance.collection('users');
 
-  //Collection reference de mensajes de usuarios
-  final CollectionReference agroMessagesCollection =
+  final CollectionReference questions =
   FirebaseFirestore.instance.collection('questions');
 
 
+  //============================PREGUNTAS Y RESPUESTAS==========================
 
 
-  //ESTO NO SE ESTA USANDO PARA EL LOGIN!!! ASI SE METE INFO EN FIREBASE
-  Future updateUserData(
-      String name, String email, String picture) async {
-    return await agroCollection.doc(uid).set({
-      'name': name,
-      "email": email,
-      "picture": picture,
-    });
-  }
 
-  Future saveQuestion(
+
+  Future saveQuestionFirebase(
       String pregunta, String detalles, String tema, String image) async {
-    return await agroCollection.doc(uid).set({
+    return await questions.doc().set({
+      'usuarioEnvia': uid,
       'question': pregunta,
       "details": detalles,
       "theme": tema,
       "picture": image,
+      'answer': {},
     });
   }
 
+  Future saveAnswerFirebase(String idRef, String mensaje) async {
+    return await questions.doc(idRef).update({
+      'answer': {
+        'usuarioResponde': uid,
+        'respuesta': mensaje,
+      },
+    });
+  }
+
+  Future deleteDocumentFirebase(String idRef) async {
+    return await questions.doc(idRef).delete();
+  }
+
+  Future<List> getDataQuestions() async {
+    Query query = questions..where('usuarioEnvia', isEqualTo: uid);
+    QuerySnapshot querySnapshot = await query.get();
+    final allData = querySnapshot.docs;
+
+    List finalList = [];
+    for (var data in allData) {
+      finalList.add(QuestionModel(
+          id: data.id,
+          question: data['question']!,
+          details: data['details']!,
+          theme: data['theme']!,
+          picture: data['picture']!,
+          answer: data['answer']!));
+    }
+    return finalList;
+  }
 
   /* **********************************
   Métodos para manejar imágenes  en Firestorage
@@ -56,7 +81,7 @@ class DatabaseService {
       Reference ref = fireStorage.ref(destination);
       imageTask = ref.putFile(file);
 
-      agroCollection.doc(uid).update({"picture" : destination});
+      users.doc(uid).update({"picture" : destination});
 
       return imageTask;
 
@@ -75,7 +100,7 @@ class DatabaseService {
     try{
 
       // obtiene toda la información del documento con id: "uid" de la colección "users"
-      final DocumentSnapshot<Object?> response = await agroCollection.doc(uid).get();
+      final DocumentSnapshot<Object?> response = await users.doc(uid).get();
 
       // obtiene una referencia a la imagen guardada en fireStorage con el nombre
       // del campo picture de la respuesta obtenida anteriormente, y la borra
@@ -85,7 +110,7 @@ class DatabaseService {
       Reference ref = fireStorage.ref(destination);
       imageTask = ref.putFile(file);
 
-      agroCollection.doc(uid).update({"picture" : destination});
+      users.doc(uid).update({"picture" : destination});
 
       return imageTask;
 
@@ -101,7 +126,7 @@ class DatabaseService {
   Future loadProfileImageOnStartup() async{
 
     // obtiene toda la información del documento con id: "uid" de la colección "users"
-    final DocumentSnapshot<Object?> response = await agroCollection.doc(uid).get();
+    final DocumentSnapshot<Object?> response = await users.doc(uid).get();
 
     // obtiene una referencia a la imagen guardada en fireStorage con el nombre
     // del campo picture de la respuesta obtenida anteriormente
@@ -117,7 +142,7 @@ class DatabaseService {
  // Método para cargar imagen de algún mensaje
   Future<String> getImageFromMessage(String messageId) async{
 
-    final DocumentSnapshot<Object?> response = await agroMessagesCollection.doc(messageId).get();
+    final DocumentSnapshot<Object?> response = await questions.doc(messageId).get();
     String picName = response.get("picture");
 
     if (  picName == '' ){
