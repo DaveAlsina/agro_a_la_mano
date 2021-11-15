@@ -47,7 +47,7 @@ class DatabaseService {
     List finalList = [];
     for (var data in allData) {
       finalList.add(QuestionModel(
-          id: '',
+          id: data.id,
           question: data['question']!,
           details: data['details']!,
           theme: data['theme']!,
@@ -55,13 +55,5 @@ class DatabaseService {
           answer: data['answer']!));
     }
     return finalList;
-    //   List dataList = [];
-    //   for (var snapshot in allData) {
-    //     QuestionModel(
-    //       id: 1,
-    //       question: allData.
-    //     );
-    //   }
-    // }
   }
 }

@@ -51,6 +51,7 @@ class HistoryController extends GetxController {
 
     await prefs.storeData<List<RowLoc>>("rows", new_rows);
     _rows.value = new_rows;
+    deleteQuestion(index);
   }
 
   //==========================================================================
@@ -70,5 +71,13 @@ class HistoryController extends GetxController {
       log('pregunta guardada correctamente');
       return true;
     }
+  }
+
+  Future<bool> deleteQuestion(int index) async {
+    String uid = _authController.uidLogged;
+    String idRef = _questionsByUser[index].id;
+    print('Id de la pregunta a borrar' + idRef.toString());
+    await DatabaseService(uid: uid).deleteDocumentFirebase(idRef);
+    return true;
   }
 }

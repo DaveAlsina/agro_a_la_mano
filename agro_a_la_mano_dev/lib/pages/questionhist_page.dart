@@ -66,7 +66,6 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
     });
   }
 
-  @override
   SingleChildScrollView dataBody() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
