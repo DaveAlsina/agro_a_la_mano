@@ -16,7 +16,6 @@ class HistoryController extends GetxController {
 
   var currentQuestionIdx = [-1].obs;
   var _rows = <dynamic>[].obs;
-  var _questionsByUser = [].obs;
 
 
   List<dynamic> get rows => _rows.value;
@@ -25,12 +24,12 @@ class HistoryController extends GetxController {
 
   //==========================================================================
   //Functionality using firebase
-  Future<bool> saveQuestion(
-
+  Future<String> saveQuestion(
     String pregunta, String detalles, String tema, String picture) async {
+
     String uid = _authController.uid;
 
-    dynamic response = DatabaseService(uid: uid)
+    String response = await DatabaseService(uid: uid)
       .saveQuestionFirebase(pregunta, detalles, tema, picture);
 
     //Get all answers to display
@@ -38,10 +37,10 @@ class HistoryController extends GetxController {
 
     if (response == null) {
         log('No se pudo guardar la pregunta');
-        return false;
+        return 'xxxx';
     } else {
         log('pregunta guardada correctamente');
-        return true;
+        return response;
     }
   }
 
