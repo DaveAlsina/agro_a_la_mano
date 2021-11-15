@@ -1,14 +1,19 @@
+import 'dart:developer';
+
 import 'package:agro_a_la_mano_dev/data/repositories/models/userModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String get uid => _auth.currentUser!.uid.toString();
 
   // user obj based on firebaseUser
   UserFirebase _userFromFirebase(
       String uid, String email, String name, String picture) {
-    return UserFirebase(uid: uid, email: email, name: name, picture: picture);
+    return UserFirebase(
+        uid: this.uid, email: email, name: name, picture: picture);
   }
 
   //Get current user logged in
@@ -25,8 +30,10 @@ class AuthService {
           email: email, password: password);
 
       print('El usuario del login es ' + user.toString());
+
       UserFirebase fireUser = _userFromFirebase(user.user!.uid.toString(),
           email, user.additionalUserInfo!.username.toString(), '');
+
       return fireUser;
     } catch (e) {
       print(e.toString());
@@ -57,6 +64,18 @@ class AuthService {
     } catch (e) {
       print(e.toString());
       return null;
+    }
+  }
+
+  Future changePassword(String newPassword) async {
+    try {
+      var myUser = _auth.currentUser;
+      await myUser!.updatePassword(newPassword);
+      return true;
+    } catch (e) {
+      log("Hubo un error al momento de actualizar contraseña de usuario: " +
+          e.toString());
+      return false;
     }
   }
 }

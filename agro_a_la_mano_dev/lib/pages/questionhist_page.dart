@@ -1,8 +1,3 @@
-//import 'package:agro_a_la_mano_dev/domain/controllers/authentication_controller.dart';
-//import 'package:agro_a_la_mano_dev/ui/pages/authentication/signup_page.dart';
-import 'package:agro_a_la_mano_dev/controllers/messages_controller.dart';
-import 'package:agro_a_la_mano_dev/pages/comentarios_page.dart';
-import 'package:agro_a_la_mano_dev/pages/post_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +12,10 @@ import 'package:agro_a_la_mano_dev/assets/icons.dart' as Icons_constants;
 import 'package:agro_a_la_mano_dev/widgets/customBottomNavBar.dart';
 import 'package:agro_a_la_mano_dev/widgets/customAppBar.dart';
 
+import 'package:agro_a_la_mano_dev/controllers/messages_controller.dart';
+import 'package:agro_a_la_mano_dev/data/repositories/models/row_loc_model.dart';
+import 'package:agro_a_la_mano_dev/widgets/deletePostButton.dart';
+
 class QuestionHistoryPage extends StatefulWidget {
   const QuestionHistoryPage({Key? key}) : super(key: key);
 
@@ -28,8 +27,8 @@ class QuestionHistoryPage extends StatefulWidget {
 
 class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
   bool sort = false;
-  List<RowLoc> filas = [];
-  List<RowLoc> filasSeleccionadas = [];
+  List<dynamic> filas = [];
+  List<dynamic> filasSeleccionadas = [];
 
   HistoryController histController = Get.find<HistoryController>();
 
@@ -41,8 +40,7 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
     super.initState();
   }
 
-  @override
-  onSelectedRow(bool? selected, RowLoc fila) async {
+  onSelectedRow(bool? selected, dynamic fila) async {
     setState(() {
       if (selected!) {
         filasSeleccionadas.add(fila);
@@ -52,13 +50,13 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
     });
   }
 
-  @override
   deleteSelected() async {
     setState(() {
       if (filasSeleccionadas.isNotEmpty) {
-        List<RowLoc> temp = [];
+        List<dynamic> temp = [];
         temp.addAll(filasSeleccionadas);
-        for (RowLoc fila in temp) {
+        for (dynamic fila in temp) {
+          histController.deleteQuestion(fila.id);
           filas.remove(fila);
           filasSeleccionadas.remove(fila);
         }
@@ -69,79 +67,124 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
   SingleChildScrollView dataBody() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Column(
-        children: <Widget>[
-          DataTable(
-            dataRowHeight: 80,
-            sortAscending: sort,
-            sortColumnIndex: 0,
-            columns: [
-              DataColumn(
-                  label: Text("Tus preguntas"),
-                  numeric: false,
-                  tooltip: "This is Question",
-                  onSort: (columnIndex, ascending) {
-                    setState(() {
-                      sort = !sort;
-                    });
-                  }),
-              DataColumn(
-                  label: Text(""),
-                  numeric: false,
-                  tooltip: "This is more",
-                  onSort: (columnIndex, ascending) {
-                    setState(() {
-                      sort = !sort;
-                    });
-                  }),
-            ],
-            rows: filas
-                .map(
-                  (fila) => DataRow(
-                      selected: filasSeleccionadas.contains(fila),
-                      onSelectChanged: (b) {
-                        String? fila_id = fila.id;
-                        print("Onselect $fila_id: $b");
-                        onSelectedRow(b, fila);
-                      },
-                      cells: <DataCell>[
-                        DataCell(Container(
-                          child: TextField(
-                            decoration: InputDecoration(
-                                labelText: fila.id,
-                                labelStyle: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 22,
-                                  fontStyle: FontStyle.italic,
+      child: Align(
+        alignment: Alignment.bottomRight,
+        child: Column(
+          children: <Widget>[
+            DataTable(
+              dataRowHeight: 150,
+              sortAscending: sort,
+              sortColumnIndex: 0,
+              columns: [
+                DataColumn(
+                    label: Text("Tus preguntas"),
+                    numeric: false,
+                    tooltip: "This is Question",
+                    onSort: (columnIndex, ascending) {
+                      setState(() {
+                        sort = !sort;
+                      });
+                    }),
+              ],
+              rows: filas
+                  .map(
+                    (fila) => DataRow(
+                        selected: filasSeleccionadas.contains(fila),
+                        onSelectChanged: (b) {
+                          String? fila_id = fila.question;
+                          print("Onselect $fila_id: $b");
+                          onSelectedRow(b, fila);
+                        },
+                        cells: <DataCell>[
+                          DataCell(
+                            SizedBox(
+                              width: 300.0,
+                              height: 150.0,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 300.0,
+                                      height: 10.0,
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.all(10.0),
+                                      decoration: BoxDecoration(
+                                        color: colorCons.GREEN_BUTTON_COLOR,
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      child: Text(
+                                        "Pregunta: ${fila.question}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 15),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 300.0,
+                                      height: 10.0,
+                                    ),
+                                    TextField(
+                                      keyboardType: TextInputType.multiline,
+                                      maxLines: null,
+                                      decoration: InputDecoration(
+                                          labelText: "Detalles",
+                                          labelStyle: TextStyle(
+                                            color: Colors.green,
+                                            fontSize: 22,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  colorCons.GREEN_BUTTON_COLOR,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  colorCons.GREEN_BUTTON_COLOR,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          )),
+                                      controller: TextEditingController(
+                                          text: fila.details),
+                                      onChanged: (text) {
+                                        fila.details = text;
+                                      },
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        IconButton(
+                                          icon: Icon(
+                                              Icons.report_gmailerrorred_sharp),
+                                          tooltip: 'Conocer mas acerca de...',
+                                          onPressed: () {
+                                            Get.toNamed('/PostPage');
+                                          },
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
-                                suffixIcon: Icon(Icons.search),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: colorCons.GREEN_BUTTON_COLOR,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15.0),
-                                )),
-                            controller:
-                                TextEditingController(text: fila.question),
-                            onChanged: (text) {
-                              fila.question = text;
-                            },
+                              ),
+                            ),
                           ),
-                        )),
-                        DataCell(
-                          IconButton(
-                            icon: Icon(Icons.report_gmailerrorred_sharp),
-                            tooltip: 'Conocer mas acerca de...',
-                            onPressed: () {
-                              Get.toNamed('/QuestionHistoryPage/CommentPage');
-                            },
-                          ),
-                        ),
-                      ]),
-                )
-                .toList(),
-          ),
-        ],
+                        ]),
+                  )
+                  .toList(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -163,6 +206,7 @@ class _QuestionHistoryPageState extends State<QuestionHistoryPage> {
       body: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         verticalDirection: VerticalDirection.down,
         children: <Widget>[
           Expanded(

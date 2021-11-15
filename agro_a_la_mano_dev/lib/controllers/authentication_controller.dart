@@ -2,16 +2,19 @@ import 'package:agro_a_la_mano_dev/services/auth.dart';
 import 'package:agro_a_la_mano_dev/services/database.dart';
 import 'package:get/get.dart';
 
+import 'files_controller.dart';
+
 class AuthenticationController extends GetxController {
   // LocalPreferences lp = LocalPreferences();
   AuthService _auth = AuthService();
+
+  get uid => _auth.uid;
+
+  //nuevo
+  late DatabaseService _fireStoreDatabase;
+
   var _logged = false.obs;
-  var _uidLogged = ''.obs;
-
-  // DatabaseService _database = DatabaseService(uid: _uid.value);
-
   bool get logged => _logged.value;
-  String get uidLogged => _uidLogged.value;
 
   void setLogged(bool l) {
     _logged.value = l;
@@ -29,13 +32,17 @@ class AuthenticationController extends GetxController {
 
   Future<bool> login(email, password) async {
     dynamic response = await _auth.signUpEmailAndPass(email, password);
+
     if (response == null) {
       setLogged(false);
       return false;
     } else {
-      _uidLogged.value = response.uid;
       setLogged(true);
-      print(response);
+
+      // en el momento en que se logea o hace signup
+      // se habilita el controlador de archivos
+      await Get.put(FileController());
+
       return true;
     }
   }
@@ -45,6 +52,9 @@ class AuthenticationController extends GetxController {
     if (response == null) {
       return false;
     } else {
+      // en el momento en que se logea o hace signup
+      // se habilita el controlador de archivos
+      await Get.put(FileController());
       return true;
     }
   }
@@ -54,16 +64,24 @@ class AuthenticationController extends GetxController {
     dynamic response = await _auth.signOut();
     print(response);
     setLogged(false);
-    _uidLogged.value = '';
     return true;
   }
 
-  // Future<bool> saveUser(String email, String name, String picture) async {
-  //   dynamic response = await _database.saveUserData(name, email, picture);
-  //   if (response == null) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
+  // Update Credentials
+
+  Future updateUserCredentials() async {
+    //_fireStoreDatabase.
+  }
+
+  // Obtiene info de usuario
+
+  Future<List<String>> getUserInfo() async {
+    return await _fireStoreDatabase.getUserData();
+  }
+
+  // Cambia contraseña de usuario
+
+  Future<List> changeUserPassword(String newPassword) async {
+    return await _auth.changePassword(newPassword);
+  }
 }

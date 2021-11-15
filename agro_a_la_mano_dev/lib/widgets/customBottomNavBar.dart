@@ -41,7 +41,9 @@ class CustomBottomNavBar extends StatelessWidget {
           IconButton(
             tooltip: 'Home',
             icon: Image.asset('assets/images/brote.png'),
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed('/Home');
+            },
           ),
           Spacer(),
           IconButton(

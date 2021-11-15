@@ -1,3 +1,5 @@
+import 'package:agro_a_la_mano_dev/controllers/files_controller.dart';
+import 'package:agro_a_la_mano_dev/data/repositories/models/row_loc_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,6 +32,8 @@ class _QuestionPageState extends State<QuestionPage> {
   final _questionController = TextEditingController();
   final _themeController = TextEditingController();
   HistoryController histController = Get.find<HistoryController>();
+
+  FileController _fileController = Get.find();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,8 +92,7 @@ class _QuestionPageState extends State<QuestionPage> {
                         decoration: InputDecoration(
                             labelText: 'Detalles',
                             //suffixIcon: Icon(Icons.search),
-                            floatingLabelStyle:
-                                TextStyle(color: colorCons.GREEN_BUTTON_COLOR),
+                            //floatingLabelStyle: TextStyle(color: colorCons.GREEN_BUTTON_COLOR),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: colorCons.GREEN_BUTTON_COLOR,
@@ -130,8 +133,19 @@ class _QuestionPageState extends State<QuestionPage> {
                           IconButton(
                             icon: Icon(Icons.add_a_photo_outlined),
                             tooltip: 'Incluir imagen (opcional)',
-                            onPressed: () {
-                              setState(() {});
+                            onPressed: () async {
+                              bool response1 =
+                                  await _fileController.browseFiles();
+
+                              if (response1) {
+                                Get.snackbar(
+                                  'Imagen Añadida',
+                                  'La imagen de tu mensaje ha sido añadida',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor:
+                                      colorCons.LIGHT_GREEN_BUTTON_COLOR,
+                                );
+                              }
                             },
                           ),
                           Text(
@@ -149,6 +163,7 @@ class _QuestionPageState extends State<QuestionPage> {
                           final form = _formKey.currentState;
                           form!.save();
                           if (form.validate()) {
+                            //parte de estefanía
                             if (_questionController.text == "") {
                               //Display a message
                               showDialog(
@@ -174,7 +189,7 @@ class _QuestionPageState extends State<QuestionPage> {
                                       _questionController.text,
                                       _detailsController.text,
                                       _themeController.text,
-                                      '');
+                                      _fileController.imagePath);
                               if (respuesta) {
                                 showDialog(
                                     context: context,
@@ -213,7 +228,10 @@ class _QuestionPageState extends State<QuestionPage> {
                                         ));
                               }
                             }
-                            // bool value = true;
+
+                            /*
+                            //parte de esteban
+                            bool value = true;
                             if (_questionController.text == "")
                               return;
                             else if (_detailsController.text == "") return;
@@ -224,8 +242,9 @@ class _QuestionPageState extends State<QuestionPage> {
                                 answer: "",
                                 answerer: "");
                             histController.addHistoryRegister(registro);
+                            */
                           } else {
-                            // bool value = false;
+                            bool value = false;
                           }
                         },
                         style: ElevatedButton.styleFrom(
