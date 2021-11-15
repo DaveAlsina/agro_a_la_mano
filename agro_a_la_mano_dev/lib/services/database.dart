@@ -19,16 +19,37 @@ class DatabaseService {
 
   //============================PREGUNTAS Y RESPUESTAS==========================
 
-  Future saveQuestionFirebase(
+   Future saveQuestionFirebase(
       String pregunta, String detalles, String tema, String image) async {
-    return await questions.doc().set({
-      'usuarioEnvia': uid,
-      'question': pregunta,
-      "details": detalles,
-      "theme": tema,
-      "picture": image,
-      'answer': {},
-    });
+
+      final ref = await questions.add(
+         {
+           'usuarioEnvia': uid,
+           'question': pregunta,
+           "details": detalles,
+           "theme": tema,
+           "picture": image,
+           'answer': {},
+         }
+     );
+
+      log("el id del mensaje guardado es: " + ref.id.toString());
+
+      return ref.id.toString();
+
+     /*
+    return await questions.doc().set(
+        {
+            'usuarioEnvia': uid,
+            'question': pregunta,
+            "details": detalles,
+            "theme": tema,
+            "picture": image,
+            'answer': {},
+        }
+    );
+      */
+
   }
 
   Future saveAnswerFirebase(String idRef, String mensaje) async {

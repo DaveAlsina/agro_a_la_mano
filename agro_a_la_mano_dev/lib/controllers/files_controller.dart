@@ -173,17 +173,17 @@ class FileController extends GetxController{
 
 
     try {
-      await this.browseFilesForMessageImage();
+      //await this.browseFilesForMessageImage();
       await this.uploadFile(_messageImageFile!, _resultFromMessage, messageId);
 
-      profileImageUrl.value = await _taskSnapshot!.ref.getDownloadURL();
+      messageImageUrl.value = await _taskSnapshot!.ref.getDownloadURL();
       refresh();
       return true;
 
     }catch (e){
 
-      log("Hubo un error al subir/cargar imagen de perfil: " + e.toString());
-      profileImageUrl.value = '';
+      log("Hubo un error al subir/cargar imagen de mensaje: " + e.toString());
+      messageImageUrl.value = '';
       refresh();
       return false;
     }

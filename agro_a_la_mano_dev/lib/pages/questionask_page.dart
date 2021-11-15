@@ -182,14 +182,14 @@ class _QuestionPageState extends State<QuestionPage> {
                                         ],
                                       ));
                             } else {
-                              bool respuesta =
+                              String respuesta =
                               await histController.saveQuestion(
                                   _questionController.text,
                                   _detailsController.text,
                                   _themeController.text,
                                   _fileController.messageImagePath);
 
-                              if (respuesta) {
+                              if (respuesta != 'xxxx') {
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
@@ -207,6 +207,9 @@ class _QuestionPageState extends State<QuestionPage> {
                                                             .GREEN_BUTTON_COLOR)))
                                           ],
                                         ));
+
+                                //histController.rows[0];
+                                await _fileController.uploadMessagePic(respuesta);
 
                               } else {
                                 showDialog(
