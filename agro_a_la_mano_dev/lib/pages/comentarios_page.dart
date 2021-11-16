@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:agro_a_la_mano_dev/widgets/comment_box.dart';
 
+//estilos y colores
+import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
+    as colorCons;
+
+import 'package:agro_a_la_mano_dev/stylingConstants/textStyle_constants.dart'
+    as textCons;
+
 Color verde = Colors.green[400]!;
 Color gris = Colors.grey[350]!;
 
@@ -40,7 +47,10 @@ class _ComentariosPageState extends State<ComentariosPage> {
           horas[i]));
     }
     return Scaffold(
-        appBar: AppBar(backgroundColor: verde, title: Text("Comentarios:")),
+        backgroundColor: colorCons.BACKGROUND_COLOR,
+        appBar: AppBar(
+            backgroundColor: colorCons.GREEN_BUTTON_COLOR,
+            title: Text("Comentarios:")),
         body: ListView.separated(
           padding: const EdgeInsets.all(8),
           separatorBuilder: (BuildContext context, int index) =>
