@@ -12,6 +12,8 @@ Es una aplicación móvil que busca ayudar a conectar el agro colombiano.
 
 ### Como ejecutar la aplicación:
 
+0. Si se desea se puede ver el video guiado de instalación y ejecución que se encuentra [aquí](https://youtu.be/_MoRYxClvig). 
+
 1. Primero se debería tener Android Studio para poder correr la versión actual de la aplicación. Luego recomendamos primero seguir estas guías y regresar a leer cuando esté hecha la instalación de Android Studio. [1](https://developer.android.com/studio/install#:~:text=Launch%20the%20Android%20Studio%20DMG,Studio%20settings%2C%20then%20click%20OK.)
 
 2. Tras la instalación abra la terminal y ejecute en su carpeta de preferencia:
