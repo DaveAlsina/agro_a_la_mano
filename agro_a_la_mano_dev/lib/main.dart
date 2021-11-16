@@ -1,6 +1,7 @@
 //paquetes de las páginas implementadas
 import 'package:agro_a_la_mano_dev/controllers/files_controller.dart';
 import 'package:agro_a_la_mano_dev/pages/comentarios_page.dart';
+import 'package:agro_a_la_mano_dev/pages/feed_page.dart';
 import 'package:agro_a_la_mano_dev/pages/home_page.dart';
 import 'package:agro_a_la_mano_dev/pages/login_page.dart';
 import 'package:agro_a_la_mano_dev/pages/post_page.dart';
@@ -73,6 +74,11 @@ void main() async {
         page: () => ProfilePage(),
         transition: Transition.leftToRight,
       ),
+      GetPage(
+          name: '/FeedPage',
+          page: () => FeedPage(),
+          transition: Transition.cupertino
+      )
     ],
   ));
 }

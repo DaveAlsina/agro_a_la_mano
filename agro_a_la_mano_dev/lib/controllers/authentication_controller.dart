@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:agro_a_la_mano_dev/services/auth.dart';
 import 'package:agro_a_la_mano_dev/services/database.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,7 @@ import 'files_controller.dart';
 class AuthenticationController extends GetxController {
   // LocalPreferences lp = LocalPreferences();
   AuthService _auth = AuthService();
+
 
   get uid => _auth.uid;
 
@@ -42,6 +45,7 @@ class AuthenticationController extends GetxController {
 
     } else {
 
+      _fireStoreDatabase = DatabaseService(uid: response.uid!);
       setLogged(true);
 
       // en el momento en que se logea o hace signup
@@ -96,11 +100,20 @@ class AuthenticationController extends GetxController {
     return await _fireStoreDatabase.getUserData();
   }
 
+
+  Future<List<String>> getUserInfoById(String id) async {
+    return await _fireStoreDatabase.getUserDataById(id);
+  }
+
+
   // Cambia contraseña de usuario
 
   Future<List> changeUserPassword(String newPassword) async {
     return await _auth.changePassword(newPassword);
   }
+
+
+
 
 
 }

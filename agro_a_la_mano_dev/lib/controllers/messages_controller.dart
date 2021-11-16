@@ -12,18 +12,25 @@ import 'authentication_controller.dart';
 class HistoryController extends GetxController {
   //Llamo al controlador
   AuthenticationController _authController = Get.find();
-  LocalPreferences prefs = LocalPreferences();
 
   var currentQuestionIdx = [-1].obs;
   var _rows = <dynamic>[].obs;
-
 
   List<dynamic> get rows => _rows.value;
   QuestionModel get currentQuestionInfo => this._rows[this.currentQuestionIdx[0]];
 
 
+  HistoryController() {
+    onInit();
+  }
   //==========================================================================
   //Functionality using firebase
+
+  void onInit() async {
+    String uid = _authController.uid;
+    _rows.value = await DatabaseService(uid: uid).getDataQuestions();
+  }
+
   Future<String> saveQuestion(
     String pregunta, String detalles, String tema, String picture) async {
 
@@ -57,31 +64,22 @@ class HistoryController extends GetxController {
     refresh();
   }
 
+  // Guarda respuesta a mensaje
+  Future<bool> saveResponseQuestion(String idRef, String message) async {
 
-/*
+    String uid = _authController.uid;
 
-  Future<void> addHistoryRegister(RowLoc new_register) async {
-    _rows.value = await prefs.retrieveData<List<RowLoc>>("rows") ?? _rows.value;
-    List<RowLoc> new_rows = _rows.value;
-    new_rows.add(new_register);
-    await prefs.storeData<List<RowLoc>>("rows", new_rows);
-  }
+    bool? response = await DatabaseService(uid: uid).saveAnswerFirebase(idRef, message);
 
-  Future<void> deleteHistoryRegister(int index) async {
-    _rows.value = await prefs.retrieveData<List<RowLoc>>("rows") ?? _rows.value;
-    
-    List<RowLoc> new_rows = <RowLoc>[];
-    int count = 0;
-    for (var register in _rows.value) {
-      if(count != index)
-        new_rows.add(register);
+    if (response == null) {
+      log('No se pudo guardar la respuesta a la pregunta');
+      return false;
+    } else {
+      log('respuesta a pregunta guardada correctamente');
+      return true;
     }
-
-    await prefs.storeData<List<RowLoc>>("rows", new_rows);
-    _rows.value = new_rows;
-    deleteQuestion(index);
   }
 
 
-*/
+
 }

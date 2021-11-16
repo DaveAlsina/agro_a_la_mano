@@ -37,33 +37,60 @@ class DatabaseService {
 
       return ref.id.toString();
 
-     /*
-    return await questions.doc().set(
-        {
-            'usuarioEnvia': uid,
-            'question': pregunta,
-            "details": detalles,
-            "theme": tema,
-            "picture": image,
-            'answer': {},
-        }
-    );
-      */
-
   }
 
   Future saveAnswerFirebase(String idRef, String mensaje) async {
-    return await questions.doc(idRef).update({
-      'answer': {
-        'usuarioResponde': uid,
-        'respuesta': mensaje,
-      },
-    });
+     try{
+       final DocumentSnapshot<Object?> response = await questions.doc(idRef).get();
+       var ans = response.get("answer");
+
+       if(ans is Map<String, dynamic>){
+         await questions.doc(idRef).update({
+           'answer':
+           [{
+             'usuarioResponde': uid,
+             'respuesta': mensaje,
+           }],
+         });
+
+       }else{
+          log(ans.toString());
+
+          ans.add(
+            {
+              'usuarioResponde': uid,
+              'respuesta': mensaje,
+            }
+          );
+
+          await questions.doc(idRef).update({
+            'answer': ans
+          });
+
+
+       }
+
+       return true;
+     }catch(e){
+       log("Error al tratar de guardar la respuesta: " + e.toString());
+       return false;
+     }
   }
+
 
   Future deleteDocumentFirebase(String idRef) async {
     return await questions.doc(idRef).delete();
   }
+
+
+  Future<List<dynamic>> getCommentsFromMessage(String messageId)async{
+
+     final DocumentSnapshot<Object?> response = await questions.doc(messageId).get();
+     List<dynamic> ans = response.get("answer");
+
+     return ans;
+  }
+
 
   Future<List> getDataQuestions() async {
     Query query = questions.where('usuarioEnvia', isEqualTo: uid);
@@ -80,13 +107,47 @@ class DatabaseService {
           details: data['details']!,
           theme: data['theme']!,
           picture: data['picture']!,
-          answer: data['answer']!));
+          answer: data['answer']!,
+          usuarioEnvia: uid));
     }
     return finalList;
   }
 
+
+
+  Future<List> getFeedQuestions() async {
+    Query query = questions.where('usuarioEnvia', isNotEqualTo: uid);
+
+
+    QuerySnapshot querySnapshot = await query
+        .get()
+        .whenComplete(() => null)
+    // ignore: invalid_return_type_for_catch_error
+        .catchError((e) => log(
+        "Error al pedir los mensajes particulares del usuario: " +
+            e.toString()));
+
+
+    final allData = querySnapshot.docs;
+
+    List finalList = [];
+    for (var data in allData) {
+      finalList.add(QuestionModel(
+          id: data.id,
+          question: data['question']!,
+          details: data['details']!,
+          theme: data['theme']!,
+          picture: data['picture']!,
+          answer: data['answer']!,
+          usuarioEnvia: data['usuarioEnvia']));
+    }
+    return finalList;
+  }
+
+
+
   /* *******************************
-      Obtener información del usuario
+      Obtener información del usuario autenticado
   * **********************************/
 
   Future<List<String>> getUserData() async{
@@ -94,7 +155,21 @@ class DatabaseService {
     return <String>[response.get("name"), response.get("email")];
   }
 
-  //Future<bool> updateUser
+  /* *******************************
+      Obtener información del usuario por id
+  * **********************************/
+
+  Future<List<String>> getUserDataById(String userid) async {
+    try{
+      final DocumentSnapshot<Object?> response = await users.doc(userid).get();
+      return <String>[response.get("name"), response.get("email")];
+    }catch(e){
+      log("Error al obtener la información de usuario por id de usuario: " + e.toString());
+      return ["", ""];
+    }
+  }
+
+
 
   /* **********************************
   Métodos para manejar imágenes  en Firestorage

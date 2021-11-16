@@ -6,17 +6,12 @@ import 'package:flutter/material.dart';
 class CommentBox extends StatelessWidget {
   // De esta forma puede entrar cualquier argumento a la clase
   @override
-  CommentBox(this.autor, this.hasPhoto, this.contenido, this.nLikes,
-      this.nRespuestas, this.id, this.fecha, this.hora);
+  CommentBox(this.autor, this.contenido, this.nLikes, this.id);
 
   final String autor;
-  final bool hasPhoto;
   final String contenido;
   final int nLikes;
-  final nRespuestas;
   final String id; // identificador unico del comentario
-  final String fecha;
-  final String hora;
 
   @override
   Widget build(BuildContext context) {
@@ -74,18 +69,11 @@ class CommentBox extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(this.fecha,
-                                      style: TextStyle(
-                                        color: Colors.grey[350],
-                                      )),
-                                  Text(this.hora,
-                                      style: TextStyle(
-                                        color: Colors.grey[350],
-                                      )),
                                   IconButton(
                                       onPressed: () {},
                                       icon: Icon(Icons.thumb_up)),
                                   Text(this.nLikes.toString()),
+
                                   IconButton(
                                       onPressed: () {},
                                       icon: Icon(Icons.add_comment))

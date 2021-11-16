@@ -27,7 +27,9 @@ class CustomBottomNavBar extends StatelessWidget {
               Icons.explore_outlined,
               color: colorCons.GREY_LETTERS_COLOR,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed('/FeedPage');
+            },
           ),
           Spacer(),
           IconButton(
