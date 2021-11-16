@@ -209,5 +209,15 @@ class DatabaseService {
   }
 
 
+  //ESTO NO SE ESTA USANDO PARA EL LOGIN!!! ASI SE METE INFO EN FIREBASE
+  Future updateUserData(String name, String email, String picture) async {
+    return await users.doc(uid).set({
+      'name': name,
+      "email": email,
+      "picture": picture,
+    });
+  }
+
+
 
 }

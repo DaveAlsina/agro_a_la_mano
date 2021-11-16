@@ -18,6 +18,8 @@ import 'package:get/get.dart';
 
 // librerias nuevas desde 12 de Nov
 import 'package:agro_a_la_mano_dev/controllers/files_controller.dart';
+import 'package:agro_a_la_mano_dev/widgets/update_name_password_fields.dart';
+
 
 
 /*
@@ -46,10 +48,12 @@ class _ProfilePageState extends State<ProfilePage> {
     return info[0];
   }
 
+
   @override
     Widget build(BuildContext context) {
       return MaterialApp(
         home: Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Container(
             color: colorCons.BACKGROUND_COLOR,
             child: Column(
@@ -104,96 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
 
-                  SizedBox(
-                    height: 40,
-                  ),
-
-                  /*
-                  Nombre y campo para cambiarlo
-                   */
-
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Flexible(
-                          child: Text('Nombre      '),
-                          flex: 2,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Flexible(
-                          flex: 5,
-                          child: Container(
-                            child: TextField(
-                              controller: _nameController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Nombre de usuario",
-                                suffixIcon: Icon(
-                                  Icons.border_color_sharp,
-                                  color: colorCons.GREY_LETTERS_COLOR,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                      ]
-                  ),
-
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  /*
-                  Correo y campo para cambiarlo
-                */
-
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Flexible(
-                          child: Text('Contraseña'),
-                          flex: 2,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Flexible(
-                          flex: 5,
-                          child: Container(
-                            child: TextField(
-
-                              obscureText: true,
-                              controller: _passwordController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Contraseña" ,
-                                suffixIcon: Icon(
-                                  Icons.border_color_sharp,
-                                  color: colorCons.GREY_LETTERS_COLOR,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        SizedBox(
-                          width: 40,
-                        ),
-                      ]),
-
+                  NameAndPasswordFields(),
                   Spacer(),
                   Spacer(),
 
@@ -202,8 +117,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   Flexible(
                     flex: 1,
                     child: TextButton(
-                      onPressed: () {
-                        _authcontroller.logout();
+                      onPressed: () async{
+                        await _authcontroller.logout();
                       },
                       onLongPress: () => () {},
                       child: Text(
@@ -216,12 +131,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.fromLTRB(25, 5, 25, 5),
                         primary: Colors.white,
-                        backgroundColor: Colors.black38,
+                        backgroundColor: Colors.brown,
                       ),
                     ),
                   ),
                 ]),
           ),
+
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(80.0),
             child: Container(

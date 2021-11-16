@@ -38,9 +38,11 @@ class AuthService {
     try {
       UserCredential user = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+
       var myUser = _auth.currentUser;
       await myUser!.updateDisplayName(name);
       print("This is the current user: " + myUser.toString());
+
       return _userFromFirebase(user.user!.uid.toString(), email, name, '');
     } catch (e) {
       print(e.toString());

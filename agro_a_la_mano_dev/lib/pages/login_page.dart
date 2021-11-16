@@ -169,15 +169,18 @@ class _LoginPageState extends State<LoginPage> {
                               fontFamily: textCons.TEXT_FONT_CONST,
                               fontSize: 16),
                         ),
+
                         onPressed: () async {
                           FocusScope.of(context).requestFocus(FocusNode());
                           final form = _formKey.currentState;
                           form!.save();
+
                           if (form.validate()) {
                             bool logged = await _authcontroller.login(
                                 _emailController.text,
                                 _passwordController.text);
                             print(logged);
+
                             if (logged) {
                               // ScaffoldMessenger.of(context).showSnackBar(
                               //     SnackBar(content: Text('User ok')));
@@ -258,7 +261,7 @@ class _LoginPageState extends State<LoginPage> {
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         print('click registrar');
-                                        Get.to(() => SignupPage());
+                                        Get.toNamed('/SignUpPage');
                                       }))
                           ],
                         ),

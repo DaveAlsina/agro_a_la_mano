@@ -21,6 +21,7 @@ class AuthenticationController extends GetxController {
   void setLogged(bool l) {
     _logged.value = l;
     update();
+    refresh();
   }
 
   AuthenticationController() {
@@ -57,6 +58,9 @@ class AuthenticationController extends GetxController {
     if (response == null) {
       return false;
     } else {
+
+      _fireStoreDatabase = DatabaseService(uid: response.uid!);
+      _fireStoreDatabase.updateUserData(name, email, '');
 
       // en el momento en que se logea o hace signup
       // se habilita el controlador de archivos

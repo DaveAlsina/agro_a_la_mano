@@ -7,6 +7,7 @@ import 'package:agro_a_la_mano_dev/pages/post_page.dart';
 import 'package:agro_a_la_mano_dev/pages/questionhist_page.dart';
 import 'package:agro_a_la_mano_dev/pages/profile_page.dart';
 import 'package:agro_a_la_mano_dev/pages/questionask_page.dart';
+import 'package:agro_a_la_mano_dev/pages/signup_page.dart';
 
 // constantes de estilo
 import 'package:agro_a_la_mano_dev/stylingConstants/color_constants.dart'
@@ -32,6 +33,16 @@ void main() async {
   runApp(GetMaterialApp(
     home: Obx(() => auth.logged? MaterialApp(home: HomePage()) : LoginPage()),
     getPages: [
+      GetPage(
+        name: '/SignUpPage',
+        page: () => SignupPage(),
+        transition: Transition.fade,
+      ),
+      GetPage(
+        name: '/LoginPage',
+        page: () => LoginPage(),
+        transition: Transition.fade,
+      ),
       GetPage(
         name: '/Home',
         page: () => HomePage(),
