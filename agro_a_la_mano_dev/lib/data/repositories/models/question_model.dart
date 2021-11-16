@@ -1,5 +1,6 @@
 class QuestionModel {
   final String id;
+  final String usuarioEnvia;
   final String question;
   final String details;
   final String theme;
@@ -8,6 +9,7 @@ class QuestionModel {
 
   QuestionModel(
       {required this.id,
+      required this.usuarioEnvia,
       required this.question,
       required this.details,
       required this.theme,

@@ -18,8 +18,17 @@ class HistoryController extends GetxController {
 
   List<dynamic> get rows => _rows.value;
 
+  HistoryController() {
+    onInit();
+  }
   //==========================================================================
   //Functionality using firebase
+
+  void onInit() async {
+    String uid = _authController.uid;
+    _rows.value = await DatabaseService(uid: uid).getDataQuestions();
+  }
+
   Future<bool> saveQuestion(
       String pregunta, String detalles, String tema, String picture) async {
     String uid = _authController.uid;

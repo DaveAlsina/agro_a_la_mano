@@ -16,12 +16,6 @@ class AuthService {
         uid: this.uid, email: email, name: name, picture: picture);
   }
 
-  //Get current user logged in
-  // get user {
-  //   return _auth.authStateChanges().map(
-  //       (User? user) => _userFromFirebase(user!.uid, '', '', '')); //Help D:
-  // }
-
   // Sign in with email and password
   Future<UserFirebase?> signUpEmailAndPass(
       String email, String password) async {

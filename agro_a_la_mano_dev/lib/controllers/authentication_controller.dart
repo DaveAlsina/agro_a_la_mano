@@ -79,6 +79,10 @@ class AuthenticationController extends GetxController {
     return await _fireStoreDatabase.getUserData();
   }
 
+  Future<List<String>> getUserInfoById(String id) async {
+    return await _fireStoreDatabase.getUserDataById(id);
+  }
+
   // Cambia contraseña de usuario
 
   Future<List> changeUserPassword(String newPassword) async {

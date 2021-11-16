@@ -48,6 +48,7 @@ class DatabaseService {
     QuerySnapshot querySnapshot = await query
         .get()
         .whenComplete(() => null)
+        // ignore: invalid_return_type_for_catch_error
         .catchError((e) => log(
             "Error al pedir los mensajes particulares del usuario: " +
                 e.toString()));
@@ -62,17 +63,53 @@ class DatabaseService {
           details: data['details']!,
           theme: data['theme']!,
           picture: data['picture']!,
-          answer: data['answer']!));
+          answer: data['answer']!,
+          usuarioEnvia: uid));
+    }
+    return finalList;
+  }
+
+  Future<List> getFeedQuestions() async {
+    Query query = questions.where('usuarioEnvia', isNotEqualTo: uid);
+    QuerySnapshot querySnapshot = await query
+        .get()
+        .whenComplete(() => null)
+        // ignore: invalid_return_type_for_catch_error
+        .catchError((e) => log(
+            "Error al pedir los mensajes particulares del usuario: " +
+                e.toString()));
+
+    final allData = querySnapshot.docs;
+
+    List finalList = [];
+    for (var data in allData) {
+      finalList.add(QuestionModel(
+          id: data.id,
+          question: data['question']!,
+          details: data['details']!,
+          theme: data['theme']!,
+          picture: data['picture']!,
+          answer: data['answer']!,
+          usuarioEnvia: data['usuarioEnvia']));
     }
     return finalList;
   }
 
   /* *******************************
-      Obtener información del usuario
+      Obtener información del usuario autenticado
   * **********************************/
 
   Future<List<String>> getUserData() async {
     final DocumentSnapshot<Object?> response = await users.doc(uid).get();
+    return <String>[response.get("name"), response.get("email")];
+  }
+
+/* *******************************
+      Obtener información del usuario por id
+  * **********************************/
+
+  Future<List<String>> getUserDataById(String userid) async {
+    final DocumentSnapshot<Object?> response = await users.doc(userid).get();
     return <String>[response.get("name"), response.get("email")];
   }
 
